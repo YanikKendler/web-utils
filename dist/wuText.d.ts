@@ -1,5 +1,17 @@
 export declare class wuText {
+    /**
+     * Pads a number to a specified length with a specified character
+     * @param number
+     * @param length default: 2
+     * @param padChar default: '0'
+     */
     static padNumber(number: number, length?: number, padChar?: string): string;
+    /**
+     * Pads a string to a specified length with a specified character
+     * @param text
+     * @param length default: 2
+     * @param padChar default: ' '
+     */
     static padString(text: string, length?: number, padChar?: string): string;
     /**
      * Rounds a number to a specified number of digits
@@ -33,4 +45,12 @@ export declare class wuText {
      * @param max
      */
     static wrapNumber(number: number, min: number, max: number): number;
+    /**
+     * Uppercases or Lowercases a given range of letters in a text
+     * @param text String
+     * @param from position
+     * @param to position
+     * @param fontCase "upper" or "lower"
+     */
+    static upperOrLowerTextRange(text: string, from: number, to: number, fontCase?: "upper" | "lower"): string;
 }

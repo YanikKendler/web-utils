@@ -15,6 +15,21 @@ export class wuGeneral {
     }
 
     /**
+     * moves the cursor to the end of a given elements text content
+     * @param element
+     */
+    static moveCursorToEnd(element: HTMLElement) {
+        const range = document.createRange();
+        const selection = window.getSelection();
+        if (selection) {
+            range.selectNodeContents(element);
+            range.collapse(false); // Move cursor to the end
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
+
+    /**
      * returns the height of an element, taking into account the box-sizing property
      * @param elem any HTMLElement defaults to the body element
      */
@@ -48,5 +63,17 @@ export class wuGeneral {
      */
     static deepCopy(obj: any){
         return JSON.parse(JSON.stringify(obj))
+    }
+
+    /**
+     * Calls the callBack function after a set amount of clicks
+     * @param callBack the function to be called
+     * @param event the click event
+     * @param n
+     */
+    static onNthClick(callBack: Function, event: MouseEvent, n: number = 2){
+        if(event.detail == n){
+            callBack()
+        }
     }
 }

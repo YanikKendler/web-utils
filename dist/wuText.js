@@ -2,9 +2,22 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.wuText = void 0;
 class wuText {
+    //TODO test these two
+    /**
+     * Pads a number to a specified length with a specified character
+     * @param number
+     * @param length default: 2
+     * @param padChar default: '0'
+     */
     static padNumber(number, length = 2, padChar = '0') {
         return this.padString(number.toString(), length, padChar);
     }
+    /**
+     * Pads a string to a specified length with a specified character
+     * @param text
+     * @param length default: 2
+     * @param padChar default: ' '
+     */
     static padString(text, length = 2, padChar = ' ') {
         return text.padStart(length, padChar);
     }
@@ -63,6 +76,23 @@ class wuText {
             return min + (number - min) % optionCount;
         else
             return number;
+    }
+    /**
+     * Uppercases or Lowercases a given range of letters in a text
+     * @param text String
+     * @param from position
+     * @param to position
+     * @param fontCase "upper" or "lower"
+     */
+    static upperOrLowerTextRange(text, from, to, fontCase = "upper") {
+        let start = text.substring(0, from);
+        let middle = text.substring(from, to + 1);
+        let end = text.substring(to + 1);
+        if (fontCase == "upper")
+            middle = middle.toUpperCase();
+        else
+            middle = middle.toLowerCase();
+        return start + middle + end;
     }
 }
 exports.wuText = wuText;

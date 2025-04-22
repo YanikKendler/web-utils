@@ -1,8 +1,22 @@
 export class wuText{
+
+    //TODO test these two
+    /**
+     * Pads a number to a specified length with a specified character
+     * @param number
+     * @param length default: 2
+     * @param padChar default: '0'
+     */
     static padNumber(number: number, length: number = 2, padChar: string = '0'){
         return this.padString(number.toString(), length, padChar)
     }
 
+    /**
+     * Pads a string to a specified length with a specified character
+     * @param text
+     * @param length default: 2
+     * @param padChar default: ' '
+     */
     static padString(text: string, length: number = 2, padChar: string = ' '){
         return text.padStart(length, padChar)
     }
@@ -61,6 +75,26 @@ export class wuText{
         }
         else if(number > max) return min + (number-min) % optionCount
         else return number
+    }
+
+    /**
+     * Uppercases or Lowercases a given range of letters in a text
+     * @param text String
+     * @param from position
+     * @param to position
+     * @param fontCase "upper" or "lower"
+     */
+    static upperOrLowerTextRange(text: string, from: number, to: number, fontCase: "upper" | "lower" = "upper"): string {
+        let start = text.substring(0, from)
+        let middle = text.substring(from, to+1)
+        let end = text.substring(to+1)
+
+        if(fontCase == "upper")
+            middle = middle.toUpperCase()
+        else
+            middle = middle.toLowerCase()
+
+        return start + middle + end
     }
 
     /*static wrapNumberRecursive(number: number, min: number, max: number): number {

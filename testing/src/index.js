@@ -11,6 +11,7 @@ console.log(wuText.truncateText("This is a long text", 10))
 console.log(wuText.truncateText("This is a long text", 10, "%8", false))
 console.log(wuText.numberToLetter(15))
 console.log(wuText.numberToLetter(25))
+console.log(wuText.upperOrLowerTextRange("abadsfasdfasdfasdf", 0, 0, "upper"))
 /*
 * testing web util color
 */
@@ -38,3 +39,23 @@ function renderColorSwatches(){
 
     document.querySelector(".colorSwatches").innerHTML = swatches
 }
+
+document.querySelector("#b1").addEventListener("dblclick", (e) => {
+    wuGeneral.onNthClick(() => {
+        console.log("Double clicked 1")
+    }, e)
+    console.log("Double clicked 1")
+})
+
+document.querySelector("#b2").addEventListener("click", (e) => {
+    wuGeneral.onNthClick(() => {
+        console.log("tripple clicked 2")
+    }, e, 3)
+})
+
+document.querySelector("#b3").addEventListener("click", (e) => {
+    console.log("Button clicked")
+    wuGeneral.debounce(() => {
+        console.log("Debounced")
+    })()
+})

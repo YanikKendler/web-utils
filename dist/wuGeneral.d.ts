@@ -5,6 +5,11 @@ export declare class wuGeneral {
      */
     static selectText(element: HTMLElement): void;
     /**
+     * moves the cursor to the end of a given elements text content
+     * @param element
+     */
+    static moveCursorToEnd(element: HTMLElement): void;
+    /**
      * returns the height of an element, taking into account the box-sizing property
      * @param elem any HTMLElement defaults to the body element
      */
@@ -21,4 +26,11 @@ export declare class wuGeneral {
      * @param obj
      */
     static deepCopy(obj: any): any;
+    /**
+     * Calls the callBack function after a set amount of clicks
+     * @param callBack the function to be called
+     * @param event the click event
+     * @param n
+     */
+    static onNthClick(callBack: Function, event: MouseEvent, n?: number): void;
 }
