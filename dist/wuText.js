@@ -2,9 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.wuText = void 0;
 class wuText {
-    //TODO test these two
     /**
-     * Pads a number to a specified length with a specified character
+     * Pads a number to a specified length with a specified character (adds to the front)
      * @param number
      * @param length default: 2
      * @param padChar default: '0'
@@ -17,9 +16,10 @@ class wuText {
      * @param text
      * @param length default: 2
      * @param padChar default: ' '
+     * @param side
      */
-    static padString(text, length = 2, padChar = ' ') {
-        return text.padStart(length, padChar);
+    static padString(text, length = 2, padChar = ' ', side = "left") {
+        return side == "left" ? text.padStart(length, padChar) : text.padEnd(length, padChar);
     }
     /**
      * Rounds a number to a specified number of digits

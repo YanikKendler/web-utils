@@ -1,7 +1,6 @@
 export class wuText{
-    //TODO test these two
     /**
-     * Pads a number to a specified length with a specified character
+     * Pads a number to a specified length with a specified character (adds to the front)
      * @param number
      * @param length default: 2
      * @param padChar default: '0'
@@ -15,9 +14,10 @@ export class wuText{
      * @param text
      * @param length default: 2
      * @param padChar default: ' '
+     * @param side
      */
-    static padString(text: string, length: number = 2, padChar: string = ' '){
-        return text.padStart(length, padChar)
+    static padString(text: string, length: number = 2, padChar: string = ' ', side: "left" | "right" = "left"){
+        return side == "left" ? text.padStart(length, padChar) : text.padEnd(length, padChar)
     }
 
     /**

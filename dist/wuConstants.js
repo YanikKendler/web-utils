@@ -11,6 +11,7 @@ wuConstants.Regex = {
     onlyNumbersOrLetters: /^[a-zA-Z0-9]*$/,
     onlyNumbers: /^[0-9]*$/,
     onlyLetters: /^[a-zA-Z]*$/,
+    email: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/
 };
 wuConstants.Time = {
     msPerSecond: 1000,
@@ -64,4 +65,6 @@ wuConstants.Trivia = {
     unMemberCount: 193,
     whoMemberCount: 194,
     isoMemberCount: 249,
+    octopusHeartCount: 3, // :D
+    octopusBloodColor: "blue", // :DD
 };

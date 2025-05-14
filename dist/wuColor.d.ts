@@ -1,4 +1,4 @@
-export type anyColor = string | rgbColor | hslColor;
+export type AnyColor = string | rgbColor | hslColor;
 export interface rgbColor {
     r: number;
     g: number;
@@ -25,7 +25,7 @@ export declare class wuColor {
      * @param amount any number
      * @param wrap whether to wrap the hue around once the maximum is reached (361 -> 0 and -1 -> 360, -2 -> 359 etc.)
      */
-    static shiftHue(color: anyColor, amount: number, wrap?: boolean): rgbColor;
+    static shiftHue(color: AnyColor, amount: number, wrap?: boolean): rgbColor;
     /**
      * shifts the saturation of a given color by a given amount
      * enter a negative number to decrease the saturation
@@ -35,7 +35,7 @@ export declare class wuColor {
      * @param amount
      * @param wrap whether to wrap the saturation around once the maximum is reached (101 -> 0 and -1 -> 100)
      */
-    static shiftSaturation(color: anyColor, amount: number, wrap?: boolean): rgbColor;
+    static shiftSaturation(color: AnyColor, amount: number, wrap?: boolean): rgbColor;
     /**
      * shifts the lightness of a given color by a given amount
      * enter a negative number to decrease the lightness
@@ -45,17 +45,17 @@ export declare class wuColor {
      * @param amount any number
      * @param wrap whether to wrap the lightness around once the maximum is reached (101 -> 0 and -1 -> 100)
      */
-    static shiftLightness(color: anyColor, amount: number, wrap?: boolean): rgbColor;
+    static shiftLightness(color: AnyColor, amount: number, wrap?: boolean): rgbColor;
     /**
      * returns black or white depending on which color would have the best contrast to the given color
      * @param color
      */
-    static calculateContrastColor(color: anyColor): rgbColor;
+    static calculateContrastColor(color: AnyColor): rgbColor;
     /**
      * calculates the luminance of a given color this is different from the lightness in hsl as it takes into account how the human eye perceives brightness
      * @param color
      */
-    static calculateLuminance(color: anyColor): number;
+    static calculateLuminance(color: AnyColor): number;
     /**
      * generates a random color within the given ranges, each range is a array with a minimum and maximum value
      * if only a single value is supplied it will be used as a fixed value
@@ -81,10 +81,10 @@ export declare class wuColor {
      * @param hex
      */
     static correctHexColor(hex: string): string;
-    static anyToRgb(color: anyColor): rgbColor;
+    static anyToRgb(color: AnyColor): rgbColor;
     static hexToRgb(hex: string): rgbColor;
     static hslToRgb(hsl: hslColor): rgbColor;
     static rgbToHsl(rgb: rgbColor): hslColor;
     static rgbToHex(rgb: rgbColor): string;
-    static anyToString(color: anyColor): string;
+    static anyToString(color: AnyColor): string;
 }

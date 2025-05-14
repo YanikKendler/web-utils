@@ -6,6 +6,7 @@ export class wuConstants{
         onlyNumbersOrLetters: /^[a-zA-Z0-9]*$/,
         onlyNumbers: /^[0-9]*$/,
         onlyLetters: /^[a-zA-Z]*$/,
+        email: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/
     }
 
     static readonly Time = {
@@ -64,5 +65,7 @@ export class wuConstants{
         unMemberCount: 193,
         whoMemberCount: 194,
         isoMemberCount: 249,
+        octopusHeartCount: 3, // :D
+        octopusBloodColor: "blue", // :DD
     }
 }

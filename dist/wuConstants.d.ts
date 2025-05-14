@@ -6,6 +6,7 @@ export declare class wuConstants {
         onlyNumbersOrLetters: RegExp;
         onlyNumbers: RegExp;
         onlyLetters: RegExp;
+        email: RegExp;
     };
     static readonly Time: {
         msPerSecond: number;
@@ -59,5 +60,7 @@ export declare class wuConstants {
         unMemberCount: number;
         whoMemberCount: number;
         isoMemberCount: number;
+        octopusHeartCount: number;
+        octopusBloodColor: string;
     };
 }

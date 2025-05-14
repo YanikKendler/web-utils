@@ -5,6 +5,40 @@ const wuText_1 = require("./wuText");
 const wuConstants_1 = require("./wuConstants");
 class wuTime {
     /**
+     * Converts a timestamp to a Date object.
+     * assumes either a valid timestamp as a string or as the number of milliseconds since the epoch
+     * @param timestamp
+     */
+    static anyToDate(timestamp) {
+        if (timestamp == null)
+            return new Date(0);
+        if (typeof timestamp == "string") {
+            return new Date(timestamp);
+        }
+        else if (typeof timestamp == "number") {
+            return new Date(timestamp);
+        }
+        else
+            return timestamp;
+    }
+    /**
+     * Converts a timestamp to an object with the time in different units.
+     * @param timestamp Date object, time string or timestamp in milliseconds
+     */
+    static toTimePieces(timestamp) {
+        let timeDate = this.anyToDate(timestamp);
+        let timeMilliseconds = timeDate.valueOf();
+        return {
+            years: timeDate.getFullYear(),
+            months: timeMilliseconds % wuConstants_1.wuConstants.Time.msPerYear / wuConstants_1.wuConstants.Time.msPerMonth,
+            days: timeMilliseconds % wuConstants_1.wuConstants.Time.msPerMonth / wuConstants_1.wuConstants.Time.msPerDay,
+            hours: timeDate.getHours(),
+            minutes: timeDate.getMinutes(),
+            seconds: timeDate.getSeconds(),
+            milliseconds: timeDate.getMilliseconds()
+        };
+    }
+    /**
      * Converts a timestamp to a relative time string.
      * ie. "5 minutes ago", "2 hours ago", "1 day ago", etc.
      * @param timestamp Date object, time string or timestamp in milliseconds
@@ -68,23 +102,6 @@ class wuTime {
         return result.slice(0, precision - 1).join(" ");
     }
     /**
-     * Converts a timestamp to an object with the time in different units.
-     * @param timestamp Date object, time string or timestamp in milliseconds
-     */
-    static toTimePieces(timestamp) {
-        let timeDate = this.anyToDate(timestamp);
-        let timeMilliseconds = timeDate.valueOf();
-        return {
-            years: timeDate.getFullYear(),
-            months: timeMilliseconds % wuConstants_1.wuConstants.Time.msPerYear / wuConstants_1.wuConstants.Time.msPerMonth,
-            days: timeMilliseconds % wuConstants_1.wuConstants.Time.msPerMonth / wuConstants_1.wuConstants.Time.msPerDay,
-            hours: timeDate.getHours(),
-            minutes: timeDate.getMinutes(),
-            seconds: timeDate.getSeconds(),
-            milliseconds: timeDate.getMilliseconds()
-        };
-    }
-    /**
      * Converts a timestamp to a string with date and time as numbers and a chosen separator.
      * @param timestamp Date object, time string or timestamp in milliseconds
      * @param options dateSeparator and timeSeparator
@@ -111,23 +128,6 @@ class wuTime {
         return wuText_1.wuText.padNumber(timestamp.getDate()) + options.dateSeparator +
             wuText_1.wuText.padNumber(timestamp.getMonth() + 1) + options.dateSeparator +
             timestamp.getFullYear().toString().substring(2, 4);
-    }
-    /**
-     * Converts a timestamp to a Date object.
-     * assumes either a valid timestamp as a string or as the number of milliseconds since the epoch
-     * @param timestamp
-     */
-    static anyToDate(timestamp) {
-        if (timestamp == null)
-            return new Date(0);
-        if (typeof timestamp == "string") {
-            return new Date(timestamp);
-        }
-        else if (typeof timestamp == "number") {
-            return new Date(timestamp);
-        }
-        else
-            return timestamp;
     }
 }
 exports.wuTime = wuTime;

@@ -1,6 +1,6 @@
 export declare class wuText {
     /**
-     * Pads a number to a specified length with a specified character
+     * Pads a number to a specified length with a specified character (adds to the front)
      * @param number
      * @param length default: 2
      * @param padChar default: '0'
@@ -11,8 +11,9 @@ export declare class wuText {
      * @param text
      * @param length default: 2
      * @param padChar default: ' '
+     * @param side
      */
-    static padString(text: string, length?: number, padChar?: string): string;
+    static padString(text: string, length?: number, padChar?: string, side?: "left" | "right"): string;
     /**
      * Rounds a number to a specified number of digits
      * @param num
