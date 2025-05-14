@@ -1,5 +1,4 @@
 export class wuText{
-
     //TODO test these two
     /**
      * Pads a number to a specified length with a specified character

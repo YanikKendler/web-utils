@@ -44,6 +44,10 @@ class wuGeneral {
     }
     /**
      * debounces a function - limits the rate at which a function can be called
+     *
+     * should be used like: const debouncedFunction = wuGeneral.debounce(myFunction);
+     * if its debounced inside a event binding the debounce wont work since the reference will be different
+     *
      * @param func any function
      * @param timeout the minimum time between function calls, all others will be ignored
      * @returns a debounced version of the input function

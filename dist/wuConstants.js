@@ -9,6 +9,8 @@ wuConstants.Regex = {
     empty: /^\s*$/,
     onlySpecialChars: /^[^a-zA-Z0-9]*$/,
     onlyNumbersOrLetters: /^[a-zA-Z0-9]*$/,
+    onlyNumbers: /^[0-9]*$/,
+    onlyLetters: /^[a-zA-Z]*$/,
 };
 wuConstants.Time = {
     msPerSecond: 1000,
@@ -37,19 +39,26 @@ wuConstants.ImperialUnits = {
         poundsPerLongHundredWeight: 112,
         poundsPerShortTon: 2000,
         poundsPerLongTon: 2240,
-    }
+    },
+    volume: {
+        gallonsPerBarrel: 31.5,
+        gallonsPerBushel: 8,
+        gallonsPerFluidOunce: 128,
+        gallonsPerPint: 8,
+        gallonsPerQuart: 4,
+        gallonsPerCup: 16,
+        gallonsPerTeaspoon: 768,
+        gallonsPerTablespoon: 256,
+    },
 };
 wuConstants.ImperialToMetric = {
     millimetersPerInch: 25.4,
-    centimetersPerInch: 2.54,
     gramsPerPound: 453.59237,
-    kilogramPerPound: 0.45359,
+    litersPerGallon: 3.78541,
 };
 wuConstants.MetricToImperial = {
     inchesPerMillimeter: 1 / wuConstants.ImperialToMetric.millimetersPerInch,
-    inchesPerCentimeter: 1 / wuConstants.ImperialToMetric.centimetersPerInch,
     poundsPerGram: 1 / wuConstants.ImperialToMetric.gramsPerPound,
-    poundsPerKilogram: 1 / wuConstants.ImperialToMetric.kilogramPerPound,
 };
 wuConstants.Trivia = {
     unMemberCount: 193,

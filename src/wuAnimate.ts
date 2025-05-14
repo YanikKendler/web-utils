@@ -1,21 +1,38 @@
 import {wuGeneral} from "./wuGeneral"
 
 export class wuAnimate{
-    static shake(elem: HTMLElement, duration: number = 200){
-        elem.animate([
-            {transform: 'translateX(0)', rotate: '0deg'},
+    /**
+     * Shakes an element left to right and rotates it slightly
+     * @param elem
+     * @param duration how long the whole animation should take
+     * @param shakes how many times the element should shake
+     */
+    static shake(elem: HTMLElement, duration: number = 200, shakes: number = 8){
+        const shakeKeyframeBase = [
             {transform: 'translateX(-5px)', rotate: '-2deg'},
             {transform: 'translateX(5px)', rotate: '0deg'},
             {transform: 'translateX(-5px)', rotate: '2deg'},
             {transform: 'translateX(5px)', rotate: '0deg'},
-            {transform: 'translateX(-5px)', rotate: '-2deg'},
-            {transform: 'translateX(0)', rotate: '0deg'},
-        ], {
+        ]
+
+        let shakeKeyframes = [{transform: 'translateX(0)', rotate: '0'}]
+        for(let i = 0; i < shakes; i++){
+            shakeKeyframes.push(shakeKeyframeBase[i%shakeKeyframeBase.length])
+        }
+        shakeKeyframes.push({transform: 'translateX(0)', rotate: '0'})
+
+        elem.animate(shakeKeyframes, {
             duration: duration,
             easing: 'ease-in-out',
         })
     }
 
+    /**
+     * Simple pop animation that scales an element up to a given scale and back to 1
+     * @param elem
+     * @param duration how long the whole animation should take
+     * @param scale how much the element should scale up
+     */
     static pop(elem: HTMLElement, duration: number = 200, scale: number = 1.05){
         elem.animate([
             {transform: 'scale(1)'},
@@ -27,26 +44,56 @@ export class wuAnimate{
         })
     }
 
-    static bounce(elem: HTMLElement, duration: number = 200){
-        elem.animate([
+    /**
+     * Bounces an element up and down a given number of times starting with the given max height and decreasing from there
+     * @param elem
+     * @param duration how long the whole animation should take
+     * @param maxHeight in pixels how high the element should bounce on the first bounce
+     * @param bounceCycles how many times the element should bounce
+     */
+    static bounce(elem: HTMLElement, duration: number = 200, maxHeight: number = 10, bounceCycles: number = 2){
+        const bounceKeyframeBase = (height: number) => [
+            {transform: 'translateY(0px)'},
+            {transform: `translateY(-${height}px)`},
+            {transform: 'translateY(0px)'},
+        ]
 
-        ], {
+        let bounceKeyframes = []
+
+        for(let i = 0; i < bounceCycles; i++){
+            bounceKeyframes.push(...bounceKeyframeBase(maxHeight/i+1))
+        }
+
+        elem.animate(bounceKeyframes, {
             duration: duration,
             easing: 'ease-in-out',
         })
     }
 
-    static spin(elem: HTMLElement, duration: number = 400){
+    /**
+     * Spins an element a given number of degrees
+     * @param elem
+     * @param duration how long the whole animation should take
+     * @param spinDeg in degrees how much the element should spin
+     * @param fill css animation fill mode
+     */
+    static spin(elem: HTMLElement, duration: number = 300, spinDeg: number = 720, fill: FillMode = "forwards"){
         elem.animate([
             {rotate: '0deg'},
-            {rotate: '720deg'},
+            {rotate: `${spinDeg}deg`},
         ], {
             duration: duration,
             easing: 'ease-in-out',
+            fill: fill,
         })
     }
 
-    static remove(elem: HTMLElement, duration: number = 200){
+    /**
+     * Collapses an element to 0 height and opacity
+     * @param elem
+     * @param duration
+     */
+    static collapse(elem: HTMLElement, duration: number = 200){
         elem.style.overflow = "hidden"
 
         elem.animate([
@@ -55,13 +102,16 @@ export class wuAnimate{
         ], {
             duration: duration,
             easing: 'ease-in-out',
+            fill: "forwards",
         })
-
-        setTimeout(() => {
-            elem.remove()
-        },duration)
     }
 
+    /**
+     * Reveals an element by moving it up slightly and animating its opacity, then sets its display value
+     * @param elem
+     * @param display css display value
+     * @param duration
+     */
     static show(elem: HTMLElement, display: string = "block", duration: number = 200){
         if(elem.dataset.visibility == "visible") return
 
@@ -84,12 +134,16 @@ export class wuAnimate{
             elem.style.opacity = "1"
             elem.style.display = display
             elem.dataset.visibility = "visible"
-            console.log("actually showing")
         },duration)
     }
 
-    static hide(elem: HTMLElement, duration: number = 200){
-        if(elem.dataset.visibility == "hidden") return
+    /**
+     * Hides an element by moving it down slightly and animating its opacity, then sets its display value to none
+     * @param elem
+     * @param duration
+     */
+    static hide(elem: HTMLElement, duration: number = 200) {
+        if (elem.dataset.visibility == "hidden") return
 
         elem.dataset.visibility = "hiding"
 
@@ -104,33 +158,10 @@ export class wuAnimate{
 
 
         setTimeout(() => {
-            if(elem.dataset.visibility == "hiding") {
+            if (elem.dataset.visibility == "hiding") {
                 elem.style.display = "none"
                 elem.dataset.visibility = "hidden"
             }
-        },duration)
-    }
-
-    static spinAnimation(element: HTMLElement){
-        if(element.classList.contains('spinning')) return //prevents adding multiple animations
-
-        element.classList.add('spinning')
-
-        let rotation = 0;
-
-        let interval = setInterval(() => {
-            element.animate([
-                {transform: `rotate(${rotation}deg)`},
-                {transform: `rotate(${rotation += 45}deg)`}
-            ], {
-                duration: 50,
-                fill: 'forwards',
-                easing: 'ease-in-out'
-            })
-            if(!document.body.contains(element)){ //auto remove spinning if element is removed from DOM
-                clearInterval(interval)
-                element.classList.remove('spinning')
-            }
-        }, 500)
+        }, duration)
     }
 }

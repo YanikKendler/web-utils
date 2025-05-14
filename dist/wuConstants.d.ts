@@ -4,6 +4,8 @@ export declare class wuConstants {
         empty: RegExp;
         onlySpecialChars: RegExp;
         onlyNumbersOrLetters: RegExp;
+        onlyNumbers: RegExp;
+        onlyLetters: RegExp;
     };
     static readonly Time: {
         msPerSecond: number;
@@ -33,18 +35,25 @@ export declare class wuConstants {
             poundsPerShortTon: number;
             poundsPerLongTon: number;
         };
+        volume: {
+            gallonsPerBarrel: number;
+            gallonsPerBushel: number;
+            gallonsPerFluidOunce: number;
+            gallonsPerPint: number;
+            gallonsPerQuart: number;
+            gallonsPerCup: number;
+            gallonsPerTeaspoon: number;
+            gallonsPerTablespoon: number;
+        };
     };
     static readonly ImperialToMetric: {
         millimetersPerInch: number;
-        centimetersPerInch: number;
         gramsPerPound: number;
-        kilogramPerPound: number;
+        litersPerGallon: number;
     };
     static readonly MetricToImperial: {
         inchesPerMillimeter: number;
-        inchesPerCentimeter: number;
         poundsPerGram: number;
-        poundsPerKilogram: number;
     };
     static readonly Trivia: {
         unMemberCount: number;
