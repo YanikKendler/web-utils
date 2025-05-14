@@ -2,3 +2,5 @@
 LICENSE
 test.*
 *.js.map
+dist
+node_modules

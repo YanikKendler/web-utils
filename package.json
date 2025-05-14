@@ -3,13 +3,17 @@
   "version": "1.1.0",
   "description": "a collection of utility functions for web development in js/ts",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "unpkg": "dist/index.min.js",
+  "types": "dist/types/index.d.ts",
   "files": [
-    "/dist"
+    "dist"
   ],
   "include": [
     "src/**/*.ts"
   ],
+  "scripts": {
+    "build": "tsc && terser dist/index.js -o dist/index.min.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/elYanuki/web-utils.git"
@@ -19,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/elYanuki/web-utils/issues"
   },
-  "homepage": "https://github.com/elYanuki/web-utils#readme"
+  "homepage": "https://github.com/elYanuki/web-utils#readme",
+  "devDependencies": {
+    "terser": "^5.39.1",
+    "typescript": "^5.8.3"
+  }
 }
