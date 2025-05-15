@@ -10,9 +10,6 @@
   "include": [
     "src/**/*.ts"
   ],
-  "scripts": {
-    "build": "esbuild src/index.ts --bundle --minify --platform=node --target=esnext --outfile=dist/index.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/elYanuki/web-utils.git"
@@ -24,7 +21,6 @@
   },
   "homepage": "https://github.com/elYanuki/web-utils#readme",
   "devDependencies": {
-    "esbuild": "^0.25.4",
     "typescript": "^5.8.3"
   }
 }

@@ -1,0 +1,8 @@
+.colorSwatches{
+  display: flex;
+}
+
+.color-swatch .swatch{
+  height: 100px;
+  width: 100px;
+}

@@ -23,7 +23,6 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
-    "@yanikkendler/web-utils": "^1.1.2",
-    "axios": "^0.26.1"
+    "@yanikkendler/web-utils": "^1.1.2"
   }
 }
