@@ -1,6 +1,5 @@
 import './styles/main.css'
-
-import {wuColor, wuAnimate, wuGeneral, wuText, wuConstants} from '@yanikkendler/web-utils/dist/index'
+import {wuText, wuColor} from "@yanikkendler/web-utils/dist"
 
 /*
 * testing web util text
