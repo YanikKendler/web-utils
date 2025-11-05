@@ -21,11 +21,15 @@
   ]
 }*/
 
-
 {
   "compilerOptions": {
     "module": "commonjs",
     "target": "es2019",
+    "lib": [
+      "ES2017",
+      "dom",
+      "scripthost"
+    ],
     "declaration": true,
     "outDir": "./dist"
   },

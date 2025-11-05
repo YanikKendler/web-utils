@@ -4,6 +4,9 @@
   "description": "a collection of utility functions for web development in js/ts",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
   "files": [
     "dist"
   ],
@@ -21,6 +24,6 @@
   },
   "homepage": "https://github.com/elYanuki/web-utils#readme",
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.3"
   }
 }

@@ -1,5 +1,6 @@
 import {wuGeneral} from "./wuGeneral"
 
+
 export class wuAnimate{
     /**
      * Shakes an element left to right and rotates it slightly

@@ -1,5 +1,24 @@
 import './styles/main.css'
-import {wuText, wuColor} from "@yanikkendler/web-utils/dist"
+import {wuText, wuColor, wuTime} from "@yanikkendler/web-utils"
+
+/*
+* testing web util time
+*/
+
+console.log("valid", wuTime.validateTimestamp("2023-10-10T10:10:10Z"))
+console.log("valid", wuTime.validateTimestamp(846))
+console.log("valid", wuTime.validateTimestamp(new Date()))
+console.log("invalid", wuTime.validateTimestamp(48516515159985151651656))
+console.log("invalid", wuTime.validateTimestamp())
+
+console.log(wuTime.handleInvalidTimestamp(1534, () => "adf", "invalid"))
+console.log(wuTime.handleInvalidTimestamp(461656516565461594165516451534, () => "adf", "invalid"))
+
+console.log(wuTime.toSplitTimePieces(new Date()))
+console.log(wuTime.toSplitTimePieces(234234232323, "Duration"))
+
+console.log(wuTime.toAbsoluteTimePieces(new Date()))
+console.log(wuTime.toAbsoluteTimePieces(234234232323, "Duration"))
 
 /*
 * testing web util text

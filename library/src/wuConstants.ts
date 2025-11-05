@@ -18,6 +18,11 @@ export class wuConstants{
         msPerYear:   1000 * 60 * 60 * 24 * 30 * 12
     }
 
+    static readonly Alphabet = {
+        upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        lower: 'abcdefghijklmnopqrstuvwxyz',
+    }
+
     static readonly ImperialUnits = {
         length: {
             inchesPerTwip: 1/1440,

@@ -47,7 +47,7 @@ export class wuGeneral {
      * debounces a function - limits the rate at which a function can be called
      *
      * should be used like: const debouncedFunction = wuGeneral.debounce(myFunction);
-     * if its debounced inside a event binding the debounce wont work since the reference will be different
+     * if it's debounced inside a event binding the debounce wont work since the reference will be different
      *
      * @param func any function
      * @param timeout the minimum time between function calls, all others will be ignored
@@ -64,16 +64,19 @@ export class wuGeneral {
     /**
      * creates an actual deep copy of an object - removing all references to the old object
      * @param obj
+     * @param strategy whether to use json stringify and parse or the structured clone method
      */
-    static deepCopy(obj: any){
-        return JSON.parse(JSON.stringify(obj))
+    static deepCopy<T = any>(obj: T, strategy: 'json' | 'structured' = 'structured'): T{
+        if(strategy == "json")
+            return JSON.parse(JSON.stringify(obj)) as T
+        else return structuredClone<T>(obj)
     }
 
     /**
      * Calls the callBack function after a set amount of clicks
      * @param callBack the function to be called
      * @param event the click event
-     * @param n
+     * @param n number of clicks required for the callback
      */
     static onNthClick(callBack: Function, event: MouseEvent, n: number = 2){
         if(event.detail == n){

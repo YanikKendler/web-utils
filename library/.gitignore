@@ -1,5 +1,5 @@
 ../.idea
-LICENSE
+../LICENSE
 test.*
 *.js.map
 dist
