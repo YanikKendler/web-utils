@@ -15,7 +15,10 @@ export class wuConstants{
         msPerHour:   1000 * 60 * 60,
         msPerDay:    1000 * 60 * 60 * 24,
         msPerMonth:  1000 * 60 * 60 * 24 * 30,
-        msPerYear:   1000 * 60 * 60 * 24 * 30 * 12
+        msPerYear:   1000 * 60 * 60 * 24 * 30 * 12,
+
+        englishMonths: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        germanMonths: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
     }
 
     static readonly Alphabet = {

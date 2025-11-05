@@ -1,3 +1,6 @@
+/**
+ * General Utility functions for various tasks
+ */
 export class wuGeneral {
 
     /**

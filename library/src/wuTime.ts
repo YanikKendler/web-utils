@@ -1,6 +1,9 @@
 import {wuText} from "./wuText"
 import {wuConstants} from "./wuConstants"
 
+/**
+ * Could be a Date object, a date string or a timestamp in milliseconds
+ */
 export type CouldBeDate = Date | string | number
 
 export interface TimePieces {
@@ -13,12 +16,15 @@ export interface TimePieces {
     milliseconds: number
 }
 
+/**
+ * Functions for working with dates and times
+ */
 export class wuTime{
     /**
      * validates a timestamp and returns a boolean indicating validity
      * @param timestamp date object, time string or timestamp in milliseconds
      */
-    static validateTimestamp(timestamp: CouldBeDate){
+    static validate(timestamp: CouldBeDate){
         try{
             if(this.anyToDate(timestamp) as unknown as string == "Invalid Date")
                 return false
@@ -36,8 +42,8 @@ export class wuTime{
      * @param worker function to run if the timestamp is valid
      * @param alternative string to return if the timestamp is invalid
      */
-    static handleInvalidTimestamp(timestamp: CouldBeDate, worker: (timestamp: Date) => string, alternative: string): string{
-        if(!this.validateTimestamp(timestamp))
+    static handleInvalid(timestamp: CouldBeDate, worker: (timestamp: Date) => string, alternative: string): string{
+        if(!this.validate(timestamp))
             return alternative
         else{
             const dateObj = this.anyToDate(timestamp)
@@ -49,10 +55,14 @@ export class wuTime{
      * Converts a timestamp to a Date object.
      * assumes either a valid timestamp as a string or as the number of milliseconds since the epoch
      * @param timestamp date object, time string or timestamp in milliseconds
+     * @param nullHandling whether to throw an error or set to current time if null is passed in
      */
-    static anyToDate(timestamp: CouldBeDate): Date | null {
+    static anyToDate(timestamp: CouldBeDate, nullHandling: "error" | "setToNow" = "error"): Date | null {
         if(timestamp == null) {
-            throw new Error("timestamp is null")
+            if(nullHandling == "setToNow")
+                return new Date();
+            else
+                throw new Error("timestamp is null")
         }
 
         if(typeof timestamp == "string") {
@@ -65,14 +75,6 @@ export class wuTime{
             return timestamp;
     }
 
-
-    /**
-     * @deprecated use toSplitTimePieces or toAbsoluteTimePieces instead (this function maps to toSplitTimePieces)
-     */
-    static toTimePieces(timestamp: CouldBeDate): TimePieces {
-        return this.toSplitTimePieces(timestamp)
-    }
-
     /**
      * Converts a timestamp to an object with the time split into its pieces
      * If you were to add all the pieces together you would get the original timestamp
@@ -80,11 +82,10 @@ export class wuTime{
      * @param timestamp Date object, time string or timestamp in milliseconds
      * @param treatAs whether the timestamp is a date (describes a point in time) or a duration (describes a length of time)
      */
-    static toSplitTimePieces(timestamp: CouldBeDate, treatAs: "Date" | "Duration" = "Date"): TimePieces {
+    static toSplitPieces(timestamp: CouldBeDate, treatAs: "Date" | "Duration" = "Date"): TimePieces {
         let timeDate = this.anyToDate(timestamp)
         let timeMilliseconds = timeDate.valueOf()
 
-        //TODO getfullyear is problematic since it doesnt work for a date that is used as a counter
         return {
             years: treatAs == "Date" ? timeDate.getFullYear() : timeDate.getFullYear() - 1970,
             months: Math.floor(timeMilliseconds % wuConstants.Time.msPerYear / wuConstants.Time.msPerMonth),
@@ -104,7 +105,7 @@ export class wuTime{
      * passing in a date in the year 2025 will return 56 years
      * @param timestamp
      */
-    static toAbsoluteTimePieces(timestamp: CouldBeDate): TimePieces {
+    static toAbsolutePieces(timestamp: CouldBeDate): TimePieces {
         let timeDate = this.anyToDate(timestamp)
         let timeMilliseconds = timeDate.valueOf()
 
@@ -120,49 +121,40 @@ export class wuTime{
     }
 
     /**
-     * Converts a timestamp to a relative time string.
-     * @deprecated use toTimeDurationString instead (maps to the exact same function)
-    */
-    static toRelativeTimeString(timestamp: CouldBeDate): string {
-        return this.toTimeDurationString(timestamp) + " ago"
-    }
-
-    /**
      * Converts a timestamp to a time duration string.
      * i.e. "5 minutes", "2 hours", "1 day", etc.
      * @param timestamp Date object, time string or timestamp in milliseconds
      * @param precision how many different units to show 3 would be "5 minutes, 2 seconds, 1 millisecond" 1 would be "5 minutes"
+     * @param separator character that is inserted between the different units
      */
-    static toTimeDurationString(timestamp: CouldBeDate, precision: 1 | 2 | 3 = 2): string {
-        const timeDate = this.anyToDate(timestamp)
-        const timeElapsed = new Date().valueOf() - timeDate.valueOf()
-        const pieces = this.toSplitTimePieces(timestamp, "Duration")
+    static toDurationString(timestamp: CouldBeDate, precision: 1 | 2 | 3 = 2, separator: string = ", "): string {
+        const pieces = this.toSplitPieces(timestamp, "Duration")
 
         let result: string[]
 
-        if (timeElapsed > wuConstants.Time.msPerYear) {
+        if (pieces.years > 0) {
             result = [pieces.years + ' year(s)', pieces.months + ' month(s)', pieces.days + 'day(s)']
         }
-        else if (timeElapsed > wuConstants.Time.msPerMonth) {
+        else if (pieces.months > 0) {
             result = [pieces.months + ' month(s)', pieces.days + ' day(s)', pieces.hours + ' hour(s)']
         }
-        else if (timeElapsed > wuConstants.Time.msPerDay) {
+        else if (pieces.days > 0) {
             result = [pieces.days + ' day(s)', pieces.hours + ' hour(s)', pieces.minutes + ' minute(s)']
         }
-        else if (timeElapsed > wuConstants.Time.msPerHour) {
+        else if (pieces.hours > 0) {
             result = [pieces.hours + ' hour(s)', pieces.minutes + ' minute(s)', pieces.seconds + ' second(s)']
         }
-        else if (timeElapsed > wuConstants.Time.msPerMinute) {
+        else if (pieces.minutes > 0) {
             result = [pieces.minutes + ' minute(s)', pieces.seconds + ' second(s)', pieces.milliseconds + ' millisecond(s)']
         }
-        else if (timeElapsed > wuConstants.Time.msPerSecond) {
+        else if (pieces.seconds > 0) {
             result = [pieces.seconds + ' second(s)', pieces.milliseconds + ' millisecond(s)', ""]
         }
         else{
             result = [pieces.milliseconds + ' milliseconds', "", ""]
         }
 
-        return result.slice(0, precision-1).join(" ")
+        return result.slice(0, precision).join(separator)
     }
 
     /**
@@ -174,7 +166,8 @@ export class wuTime{
         timestamp: CouldBeDate,
         options: {dateSeparator: string, timeSeparator: string, showMilliseconds: boolean} = {dateSeparator: '.', timeSeparator: ':', showMilliseconds: false}
     ){
-        return this.toFullDateString(timestamp) + ' ' + this.toFullTimeString(timestamp)
+        return this.toFullDateString(timestamp, {dateSeparator: options.dateSeparator}) + ' ' +
+            this.toFullTimeString(timestamp, {timeSeparator: options.timeSeparator, showMilliseconds: options.showMilliseconds})
     }
 
     /**
@@ -185,19 +178,37 @@ export class wuTime{
     static toFullDateString(timestamp: CouldBeDate, options: {dateSeparator: string} = {dateSeparator: '.'}) {
         const dateObject = this.anyToDate(timestamp)
 
-        return wuText.pad<number>(dateObject.getDate()) + options.dateSeparator +
-            wuText.pad<number>(dateObject.getMonth() + 1) + options.dateSeparator +
+        return wuText.pad<number>(dateObject.getDate(),2, "0") + options.dateSeparator +
+            wuText.pad<number>(dateObject.getMonth() + 1,2, "0") + options.dateSeparator +
             dateObject.getFullYear().toString().substring(2,4)
     }
 
+    /**
+     * Converts a timestamp to a string representing the time as human-readable numbers like 08:12:34
+     * @param timestamp
+     * @param options
+     */
     static toFullTimeString(timestamp: CouldBeDate, options: {timeSeparator: string, showMilliseconds: boolean} = {timeSeparator: ':', showMilliseconds: false}) {
         const dateObject = this.anyToDate(timestamp)
 
-        let result = wuText.pad<number>(dateObject.getHours()) + options.timeSeparator + wuText.pad<number>(dateObject.getMinutes())
+        let result = wuText.pad<number>(dateObject.getHours(), 2, "0") +
+            options.timeSeparator + wuText.pad<number>(dateObject.getMinutes(), 2, "0")
 
         if(options.showMilliseconds)
-            result += options.timeSeparator + wuText.pad<number>(dateObject.getMilliseconds())
+            result += options.timeSeparator + wuText.pad<number>(dateObject.getMilliseconds(), 2, "0")
 
         return result
+    }
+
+    /**
+     * Calculates the difference between two timestamps and returns it as a Date object
+     * @param duration1
+     * @param duration2
+     */
+    static difference(duration1: CouldBeDate, duration2: CouldBeDate): Date {
+        const date1 = this.anyToDate(duration1)
+        const date2 = this.anyToDate(duration2)
+
+        return this.anyToDate(date1.valueOf() - date2.valueOf())
     }
 }

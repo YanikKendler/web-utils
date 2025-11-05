@@ -1,6 +1,9 @@
 import {wuGeneral} from "./wuGeneral"
 
 
+/**
+ * Functions for animating HTML DOM elements for simple UI enhancements
+ */
 export class wuAnimate{
     /**
      * Shakes an element left to right and rotates it slightly

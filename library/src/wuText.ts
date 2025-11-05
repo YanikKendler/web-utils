@@ -1,17 +1,9 @@
 import {wuConstants} from "./wuConstants"
 
+/**
+ * Functions for working with strings in various ways
+ */
 export class wuText{
-    /**
-     * Pads a number to a specified length with a specified character (adds to the front)
-     * @deprecated use wuText.pad instead (maps to the exact same function)
-     * @param number
-     * @param length default: 2
-     * @param padChar default: '0'
-     */
-    static padNumber(number: number, length: number = 2, padChar: string = '0'){
-        return this.pad<number>(number, length, padChar)
-    }
-
     /**
      * Pads a string to a specified length with a specified character
      * @param text
@@ -20,18 +12,8 @@ export class wuText{
      * @param side "default: 'left'
      */
     static pad<T extends number | string>(text: T, length: number = 2, padChar: string = ' ', side: "left" | "right" = "left"){
-        //has to be any because typescript is stupid and thinks that padStart doesnt exist
-        let textString: any = String(text)
+        let textString = String(text)
         return side == "left" ? textString.padStart(length, padChar) : textString.padEnd(length, padChar) as unknown as T
-    }
-
-    /**
-     *
-     * Pads a string to a specified length with a specified character
-     * @deprecated use wuText.pad instead (maps to the exact same function)
-     */
-    static padString(text: string, length: number = 2, padChar: string = ' ', side: "left" | "right" = "left"){
-        return this.pad(text, length, padChar, side)
     }
 
     /**
@@ -54,14 +36,6 @@ export class wuText{
         if(text.length <= maxLength) return text
         else if(trim) return text.substring(0, maxLength).trim() + suffix
         else return text.substring(0, maxLength) + suffix
-    }
-
-    /**
-     * Truncates a string to a specified length and adds a suffix if the string is longer than the specified length
-     * @deprecated use wuText.truncate instead (maps to the exact same function)
-     */
-    static truncateText(text: string, maxLength: number = 15, suffix: string = '...', trim: boolean = true): string {
-        return this.truncate(text, maxLength, suffix, trim)
     }
 
     /**
@@ -103,7 +77,7 @@ export class wuText{
      * @param to position
      * @param fontCase "upper" or "lower"
      */
-    static upperOrLowerTextRange(text: string, from: number, to: number, fontCase: "upper" | "lower" = "upper"): string {
+    static upperOrLowerRange(text: string, from: number, to: number, fontCase: "upper" | "lower" = "upper"): string {
         let start = text.substring(0, from)
         let middle = text.substring(from, to+1)
         let end = text.substring(to+1)
@@ -116,6 +90,10 @@ export class wuText{
         return start + middle + end
     }
 
+    /**
+     * Converts a boolean value to "Yes" or "No"
+     * @param value
+     */
     static booleanToYesNo(value: boolean): string {
         return value ? "Yes" : "No"
     }

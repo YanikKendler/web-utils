@@ -1,5 +1,5 @@
 import './styles/main.css'
-import {wuText, wuColor, wuTime} from "@yanikkendler/web-utils"
+import {wuGeneral, wuText, wuColor, wuTime} from "@yanikkendler/web-utils"
 
 /*
 * testing web util time
@@ -20,13 +20,15 @@ console.log(wuTime.toSplitTimePieces(234234232323, "Duration"))
 console.log(wuTime.toAbsoluteTimePieces(new Date()))
 console.log(wuTime.toAbsoluteTimePieces(234234232323, "Duration"))
 
+console.log(wuTime.toTimeDurationString(wuTime.difference(new Date(12312), new Date(234234)), 3))
+
 /*
 * testing web util text
  */
 
 console.log(wuText.roundNumber(1.2, 20))
-console.log(wuText.truncateText("This is a long text", 10))
-console.log(wuText.truncateText("This is a long text", 10, "%8", false))
+console.log(wuText.truncate("This is a long text", 10))
+console.log(wuText.truncate("This is a long text", 10, "%8", false))
 console.log(wuText.numberToLetter(15))
 console.log(wuText.numberToLetter(25))
 console.log(wuText.upperOrLowerTextRange("abadsfasdfasdfasdf", 0, 0, "upper"))
@@ -59,9 +61,6 @@ function renderColorSwatches(){
 }
 
 document.querySelector("#b1").addEventListener("dblclick", (e) => {
-    wuGeneral.onNthClick(() => {
-        console.log("Double clicked 1")
-    }, e)
     console.log("Double clicked 1")
 })
 
@@ -71,9 +70,11 @@ document.querySelector("#b2").addEventListener("click", (e) => {
     }, e, 3)
 })
 
+const debouncedFunc = wuGeneral.debounce(() => {
+    console.log("Debounced")
+})
+
 document.querySelector("#b3").addEventListener("click", (e) => {
     console.log("Button clicked")
-    wuGeneral.debounce(() => {
-        console.log("Debounced")
-    })()
+    debouncedFunc()
 })

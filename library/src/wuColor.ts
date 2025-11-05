@@ -115,7 +115,7 @@ export class wuColor{
      * @param saturationRange
      * @param lightnessRange
      */
-    static generateRandomColor(hueRange: number[], saturationRange: number[], lightnessRange: number[]): rgbColor {
+    static random(hueRange: number[], saturationRange: number[], lightnessRange: number[]): rgbColor {
         if(hueRange.length == 0) hueRange = [0, 360]
         else if(hueRange.length == 1) hueRange.push(hueRange[0])
 
