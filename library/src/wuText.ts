@@ -28,14 +28,32 @@ export class wuText{
     /**
      * Truncates a string to a specified length and adds a suffix if the string is longer than the specified length
      * @param text
-     * @param maxLength
+     * @param maxLength number of characters to keep before truncating - default: 15
      * @param suffix the string to be added if the text needs to be truncated - default: '...'
      * @param trim whether or not to remove whitespace from the end of the string - default: true
+     * @param buffer number of extra characters allowed before truncating that are not added to the maxLength when truncating
+     *               (gets rid of truncating a single character that actually results in the longer string due to the suffix being added)
+     *               - default: 2
      */
-    static truncate(text: string, maxLength: number = 15, suffix: string = '...', trim: boolean = true): string {
-        if(text.length <= maxLength) return text
+    static truncate(text: string, maxLength: number = 15, suffix: string = '...', trim: boolean = true, buffer: number = 2): string {
+        if(text.length <= maxLength + buffer) return text
         else if(trim) return text.substring(0, maxLength).trim() + suffix
         else return text.substring(0, maxLength) + suffix
+    }
+
+    /**
+     * Truncates the center of a string and adds a separator in between the pieces
+     * @param text
+     * @param startLength number of characters before the separator - default: 8
+     * @param endLength number of characters after the separator - default: 8
+     * @param separator the string to be added in the center - default: '...'
+     * @param buffer number of extra characters allowed before truncating that are not added to the maxLength when truncating
+     *               (gets rid of truncating a single character that actually results in the longer string due to the suffix being added)
+     *               - default: 2
+     */
+    static truncateCenter(text: string, startLength: number = 8, endLength: number = 8, separator: string = '...', buffer: number = 2): string {
+        if(text.length <= startLength + endLength + buffer) return text
+        return text.substring(0, startLength) + separator + text.substring(text.length - endLength, text.length)
     }
 
     /**
