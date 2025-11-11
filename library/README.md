@@ -15,7 +15,7 @@ let accentColor = wuColor.random()
 
 If you find a bug please open an issue on the GitHub repository. If you have a feature request, please open an issue or implement it yourself and create a pull request.
 
-The library offers six classes that each have multiple utility functions
+## Overview
 
 - wuGeneral: General utility functions like debouncing a function or interacting with the DOM
 - wuAnimate: perform simple animations on dom elements like shake, pop, collapse
@@ -25,4 +25,18 @@ The library offers six classes that each have multiple utility functions
 - wuConstants: A collection of useful constants like Regex presets, unit conversions, Trivia
 
 Documentation of all available functions - auto generated from JSDOC comments
-[https://github.com/YanikKendler/web-utils/blob/main/library/API.md](./API.md)
+[./API.md](https://github.com/YanikKendler/web-utils/blob/main/library/API.md)
+
+## Breaking in v1.2.0 
+
+All around the library, names were shortened and unified. For example `wuColor.generateRandomColor` was renamed to `wuColor.random`.
+
+Full list of breaking changes:
+- wuColor: generateRandomColor renamed to random
+**wuText**
+- padString and padNumber were deleted in favor of pad<T>
+- truncateText was renamed to truncate
+- upperOrLowerTextRange was renamed to upperOrLowerRange
+**wuTime**
+- toTimepieces was split into toSplitPieces and toAbsolutePieces
+- toRelativeTimeString was renamed to toTimeDurationString
