@@ -23,3 +23,6 @@ The library offers six classes that each have multiple utility functions
 - wuTime: functions that ease working with dates, like converting them to readable strings, calculating differences between dates
 - wuText: eases working with strings like truncating, changing the case, padding
 - wuConstants: A collection of useful constants like Regex presets, unit conversions, Trivia
+
+Documentation of all available functions - auto generated from JSDOC comments
+[./API.md](./API.md)
