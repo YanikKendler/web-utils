@@ -3,19 +3,33 @@ A collection of utility classes and functions I have written over the years of c
 
 These cannot and are not indented to replace libraries specific to one task like time management or advanced color conversion. The web-utils library aims to provide simple solutions for common and simple tasks in a web project without needing to use many different more complex libraries.
 
-All Methods have a JSDOC comment above them, so you can use the IDE to see what they do and how to use them.
+1. every method is JSDOC documented
+2. fully typed with TypeScript
+3. no dependencies
+4. small size (55kb unpacked)
+5. open source
 
-To use the library, simply import the class you need and use the static methods provided.
+If you find a bug please open an issue on the GitHub repository. If you have a feature request, please open an issue or implement it yourself and create a pull request.
+
+## Usage
+
+Install via npm
+
+```bash
+npm install @yanikkendler/web-utils
+```
+
+Import the class you need and use the static methods provided.
 
 ```typescript
 import { wuColor } from '@yanikkendler/web-utils';
 
-let accentColor = wuColor.random()
+const accentColor = wuColor.random()
 ```
 
-If you find a bug please open an issue on the GitHub repository. If you have a feature request, please open an issue or implement it yourself and create a pull request.
-
 ## Overview
+
+Available utility classes:
 
 - wuGeneral: General utility functions like debouncing a function or interacting with the DOM
 - wuAnimate: perform simple animations on dom elements like shake, pop, collapse
