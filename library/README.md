@@ -25,4 +25,4 @@ The library offers six classes that each have multiple utility functions
 - wuConstants: A collection of useful constants like Regex presets, unit conversions, Trivia
 
 Documentation of all available functions - auto generated from JSDOC comments
-[./API.md](./API.md)
+[https://github.com/YanikKendler/web-utils/blob/main/library/API.md](./API.md)

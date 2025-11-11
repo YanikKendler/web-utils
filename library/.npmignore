@@ -1,5 +1,5 @@
 .idea
 LICENSE
-test.*
 *.js.map
 tsconfig.json
+.gitignore
