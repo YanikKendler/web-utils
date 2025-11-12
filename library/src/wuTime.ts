@@ -164,9 +164,9 @@ export class wuTime{
      */
     static toFullDateTimeString(
         timestamp: CouldBeDate,
-        options: {dateSeparator: string, timeSeparator: string, showMilliseconds: boolean} = {dateSeparator: '.', timeSeparator: ':', showMilliseconds: false}
+        options: {dateSeparator: string, timeSeparator: string, dateTimeSeparator: string, showMilliseconds: boolean} = {dateSeparator: '.', timeSeparator: ':', dateTimeSeparator: " ", showMilliseconds: false}
     ){
-        return this.toFullDateString(timestamp, {dateSeparator: options.dateSeparator}) + ' ' +
+        return this.toFullDateString(timestamp, {dateSeparator: options.dateSeparator}) + options.dateTimeSeparator +
             this.toFullTimeString(timestamp, {timeSeparator: options.timeSeparator, showMilliseconds: options.showMilliseconds})
     }
 
