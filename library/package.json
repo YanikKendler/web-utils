@@ -1,6 +1,6 @@
 {
   "name": "@yanikkendler/web-utils",
-  "version": "1.2.5",
+  "version": "1.2.7",
   "description": "a collection of utility functions for web development in js/ts",
   "main": "dist/index.js",
   "types": "dist/types/index.d.ts",
@@ -14,6 +14,12 @@
   "include": [
     "src/**/*.ts"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/elYanuki/web-utils.git"

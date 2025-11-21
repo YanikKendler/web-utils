@@ -27,11 +27,11 @@ export class wuText{
 
     /**
      * Clamps a number between a lower and upper bound
-     * @param number
      * @param min
+     * @param number
      * @param max
      */
-    static clamp(number: number, min: number, max:number): number{
+    static clamp(min: number, number: number, max:number): number{
         return Math.min(Math.max(number,  min), max);
     }
 
