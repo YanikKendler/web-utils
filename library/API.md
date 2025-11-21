@@ -359,6 +359,7 @@ Functions for working with strings in various ways
 * [wuText](#wuText)
     * [.pad(text, length, padChar, side)](#wuText.pad)
     * [.roundNumber(num, digits)](#wuText.roundNumber)
+    * [.clamp(number, min, max)](#wuText.clamp)
     * [.truncate(text, maxLength, suffix, trim, buffer)](#wuText.truncate)
     * [.truncateCenter(text, startLength, endLength, separator, buffer)](#wuText.truncateCenter)
     * [.numberToLetter(number, fontCase)](#wuText.numberToLetter)
@@ -391,6 +392,19 @@ Rounds a number to a specified number of digits
 | --- |
 | num | 
 | digits | 
+
+<a name="wuText.clamp"></a>
+
+### wuText.clamp(number, min, max)
+Clamps a number between a lower and upper bound
+
+**Kind**: static method of [<code>wuText</code>](#wuText)  
+
+| Param |
+| --- |
+| number | 
+| min | 
+| max | 
 
 <a name="wuText.truncate"></a>
 

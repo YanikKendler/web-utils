@@ -21,8 +21,18 @@ export class wuText{
      * @param num
      * @param digits
      */
-    static roundNumber(num: number, digits:number) {
+    static roundNumber(num: number, digits:number): string {
         return num.toFixed(digits);
+    }
+
+    /**
+     * Clamps a number between a lower and upper bound
+     * @param number
+     * @param min
+     * @param max
+     */
+    static clamp(number: number, min: number, max:number): number{
+        return Math.min(Math.max(number,  min), max);
     }
 
     /**
