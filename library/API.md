@@ -511,10 +511,11 @@ Functions for working with dates and times
     * [.toSplitPieces(timestamp, treatAs)](#wuTime.toSplitPieces)
     * [.toAbsolutePieces(timestamp)](#wuTime.toAbsolutePieces)
     * [.toDurationString(timestamp, precision, separator)](#wuTime.toDurationString)
+    * [.toRelativeString(timestamp, precision, separator)](#wuTime.toRelativeString)
     * [.toFullDateTimeString(timestamp, options)](#wuTime.toFullDateTimeString)
     * [.toFullDateString(timestamp, options)](#wuTime.toFullDateString)
     * [.toFullTimeString(timestamp, options)](#wuTime.toFullTimeString)
-    * [.difference(duration1, duration2)](#wuTime.difference)
+    * [.difference(timestamp1, timestamp2)](#wuTime.difference)
 
 <a name="wuTime.validate"></a>
 
@@ -597,6 +598,21 @@ i.e. "5 minutes", "2 hours", "1 day", etc.
 | precision | <code>2</code> | how many different units to show 3 would be "5 minutes, 2 seconds, 1 millisecond" 1 would be "5 minutes" |
 | separator | <code>, </code> | character that is inserted between the different units |
 
+<a name="wuTime.toRelativeString"></a>
+
+### wuTime.toRelativeString(timestamp, precision, separator)
+converts a time stamp into a human-readable relative time compared to now
+a timestamp 5 hours into the future would return "5 hours, 23 minutes from now"
+a timestamp 5 hours in the past would return "5 hours, 23 minutes ago"
+
+**Kind**: static method of [<code>wuTime</code>](#wuTime)  
+
+| Param | Default | Description |
+| --- | --- | --- |
+| timestamp |  | Date object, time string or timestamp in milliseconds |
+| precision | <code>2</code> | how many different units to show 3 would be "5 minutes, 2 seconds, 1 millisecond" 1 would be "5 minutes" |
+| separator | <code>, </code> | character that is inserted between the different units |
+
 <a name="wuTime.toFullDateTimeString"></a>
 
 ### wuTime.toFullDateTimeString(timestamp, options)
@@ -635,13 +651,13 @@ Converts a timestamp to a string representing the time as human-readable numbers
 
 <a name="wuTime.difference"></a>
 
-### wuTime.difference(duration1, duration2)
-Calculates the difference between two timestamps and returns it as a Date object
+### wuTime.difference(timestamp1, timestamp2)
+Calculates the difference between two timestamps in milliseconds
 
 **Kind**: static method of [<code>wuTime</code>](#wuTime)  
 
-| Param |
-| --- |
-| duration1 | 
-| duration2 | 
+| Param | Description |
+| --- | --- |
+| timestamp1 | the earlier timestamp |
+| timestamp2 | the later timestamp |
 

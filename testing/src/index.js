@@ -1,9 +1,12 @@
 import './styles/main.css'
 import {wuGeneral, wuText, wuColor, wuTime} from "@yanikkendler/web-utils"
+import {wuConstants} from "@yanikkendler/web-utils/dist"
 
 /*
 * testing web util time
 */
+
+console.log("WU TIME")
 
 console.log("valid", wuTime.validate("2023-10-10T10:10:10Z"))
 console.log("valid", wuTime.validate(846))
@@ -20,7 +23,34 @@ console.log(wuTime.toSplitPieces(234234232323, "Duration"))
 console.log(wuTime.toAbsolutePieces(new Date()))
 console.log(wuTime.toAbsolutePieces(234234232323, "Duration"))
 
-console.log(wuTime.toDurationString(wuTime.difference(new Date(12312), new Date(234234)), 3))
+console.log("difference test", wuTime.difference(new Date(Date.now()), new Date(Date.now() + wuConstants.Time.msPerHour)))
+console.log(
+    wuTime.toFullTimeString(
+        wuTime.difference(
+            new Date(Date.now()),
+            new Date(Date.now() + wuConstants.Time.msPerHour),
+        ),
+        {treatAs: "Duration"}
+    )
+)
+
+console.log(wuTime.anyToDate(wuConstants.Time.msPerDay * 3, "error", "Duration"))
+
+// 1. Past timestamp (1 minute ago)
+let oneMinuteAgo = new Date(Date.now() - wuConstants.Time.msPerMinute);
+console.log("1 minute ago:", wuTime.toRelativeString(oneMinuteAgo));
+
+// 2. Future timestamp (2 minutes from now)
+let twoMinutesFuture = new Date(Date.now() + 2 * wuConstants.Time.msPerMinute);
+console.log("2 minutes from now:", wuTime.toRelativeString(twoMinutesFuture));
+
+// 3. Custom precision (1 unit only)
+let customPrecision = new Date(Date.now() - 65_000); // 1m 5s ago
+console.log("precision 1:", wuTime.toRelativeString(customPrecision, 1));
+
+// 4. Custom separator
+let customSeparator = new Date(Date.now() - 65_432); // ~1m 5s 432ms ago
+console.log("custom separator:", wuTime.toRelativeString(customSeparator, 3, " | "));
 
 /*
 * testing web util text
