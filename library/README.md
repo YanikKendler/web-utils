@@ -34,12 +34,23 @@ Available utility classes:
 - wuGeneral: General utility functions like debouncing a function or interacting with the DOM
 - wuAnimate: perform simple animations on dom elements like shake, pop, collapse
 - wuColor: color related functions like converting between color formats, generating random colors, adjusting brightness
-- wuTime: functions that ease working with dates, like converting them to readable strings, calculating differences between dates
+- wuTime: functions that ease working with dates, like converting them to readable strings
+- wuDuration: functions that ease working with durations, like displaying them as relative time or calculating differences
 - wuText: eases working with strings like truncating, changing the case, padding
 - wuConstants: A collection of useful constants like Regex presets, unit conversions, Trivia
 
 Documentation of all available functions - auto generated from JSDOC comments
 [./API.md](https://github.com/YanikKendler/web-utils/blob/main/library/API.md)
+
+## Breaking in v1.4.0
+WuTime was heavily reworked and split into wuTime and wuDuration to separate concerns.
+
+Full list of breaking changes:
+- wuTime no longer supports the "treatAs" option
+- wuTime.toAbsolutePieces was removed
+- wuTime.toDurationString was removed
+
+See the documentation for wuDuration for the new methods to work with durations.
 
 ## Breaking in v1.2.0 
 

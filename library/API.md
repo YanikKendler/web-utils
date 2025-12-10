@@ -508,9 +508,7 @@ Functions for working with dates and times
     * [.validate(timestamp)](#wuTime.validate)
     * [.handleInvalid(timestamp, worker, alternative)](#wuTime.handleInvalid)
     * [.anyToDate(timestamp, nullHandling)](#wuTime.anyToDate)
-    * [.toSplitPieces(timestamp, treatAs)](#wuTime.toSplitPieces)
-    * [.toAbsolutePieces(timestamp)](#wuTime.toAbsolutePieces)
-    * [.toDurationString(timestamp, precision, separator)](#wuTime.toDurationString)
+    * [.toSplitPieces(timestamp)](#wuTime.toSplitPieces)
     * [.toRelativeString(timestamp, precision, separator)](#wuTime.toRelativeString)
     * [.toFullDateTimeString(timestamp, options)](#wuTime.toFullDateTimeString)
     * [.toFullDateString(timestamp, options)](#wuTime.toFullDateString)
@@ -557,46 +555,16 @@ assumes either a valid timestamp as a string or as the number of milliseconds si
 
 <a name="wuTime.toSplitPieces"></a>
 
-### wuTime.toSplitPieces(timestamp, treatAs)
+### wuTime.toSplitPieces(timestamp)
 Converts a timestamp to an object with the time split into its pieces
 If you were to add all the pieces together you would get the original timestamp
 To get the same date expressed in different length units use toAbsoluteTimePieces
 
 **Kind**: static method of [<code>wuTime</code>](#wuTime)  
 
-| Param | Default | Description |
-| --- | --- | --- |
-| timestamp |  | Date object, time string or timestamp in milliseconds |
-| treatAs | <code>Date</code> | whether the timestamp is a date (describes a point in time) or a duration (describes a length of time) |
-
-<a name="wuTime.toAbsolutePieces"></a>
-
-### wuTime.toAbsolutePieces(timestamp)
-Converts a timestamp to an object with the time expressed in different length units
-Each piece represents the input timestamp expressed in a different length unit
-To get the time split into its pieces use toSplitTimePieces
-WARNING: this function treats every value as a "duration" and not a "date" so years are always counted from 1970
-passing in a date in the year 2025 will return 56 years
-
-**Kind**: static method of [<code>wuTime</code>](#wuTime)  
-
-| Param |
-| --- |
-| timestamp | 
-
-<a name="wuTime.toDurationString"></a>
-
-### wuTime.toDurationString(timestamp, precision, separator)
-Converts a timestamp to a time duration string.
-i.e. "5 minutes", "2 hours", "1 day", etc.
-
-**Kind**: static method of [<code>wuTime</code>](#wuTime)  
-
-| Param | Default | Description |
-| --- | --- | --- |
-| timestamp |  | Date object, time string or timestamp in milliseconds |
-| precision | <code>2</code> | how many different units to show 3 would be "5 minutes, 2 seconds, 1 millisecond" 1 would be "5 minutes" |
-| separator | <code>, </code> | character that is inserted between the different units |
+| Param | Description |
+| --- | --- |
+| timestamp | Date object, time string or timestamp in milliseconds |
 
 <a name="wuTime.toRelativeString"></a>
 
