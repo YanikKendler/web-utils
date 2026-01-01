@@ -17,7 +17,7 @@ console.log("WU DURATION")
 console.log(wuDuration.toSplitPieces(wuConstants.Time.msPerMonth * 2.76))
 console.log(wuDuration.toAbsolutePieces(wuConstants.Time.msPerMonth * 2.76))
 console.log(wuDuration.toDurationString(wuConstants.Time.msPerMonth * 2.76))
-console.log(wuDuration.toFullDateTimeString(wuConstants.Time.msPerMonth * 2.76))
+console.log(wuDuration.toDateTimeString(wuConstants.Time.msPerMonth * 2.76))
 
 /*
 * testing web util text

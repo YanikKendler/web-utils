@@ -6,7 +6,8 @@ export class wuConstants{
         onlyNumbersOrLetters: /^[a-zA-Z0-9]*$/,
         onlyNumbers: /^[0-9]*$/,
         onlyLetters: /^[a-zA-Z]*$/,
-        email: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/
+        email: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/,
+        UUID: /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
     }
 
     static readonly Time = {

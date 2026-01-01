@@ -33,15 +33,29 @@ export class wuGeneral {
     }
 
     /**
+     * moves the cursor to the start of a given elements text content
+     * @param element
+     */
+    static moveCursorToStart(element: HTMLElement) {
+        const range = document.createRange();
+        const selection = window.getSelection();
+        if (selection) {
+            range.selectNodeContents(element);
+            range.collapse(true); // Move cursor to the start
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
+
+    /**
      * returns the height of an element, taking into account the box-sizing property
      * @param elem any HTMLElement defaults to the body element
      */
-    static smartHeight(elem: HTMLElement = document.querySelector("body")){
+    static smartHeight(elem: HTMLElement = document.querySelector("body")) {
         let styles = getComputedStyle(elem)
-        if(styles.boxSizing == "border-box"){
+        if (styles.boxSizing == "border-box") {
             return elem.clientHeight
-        }
-        else{
+        } else {
             return elem.clientHeight - parseFloat(styles.paddingTop) - parseFloat(styles.paddingBottom)
         }
     }
@@ -56,11 +70,13 @@ export class wuGeneral {
      * @param timeout the minimum time between function calls, all others will be ignored
      * @returns a debounced version of the input function
      */
-    static debounce(func: Function, timeout = 300){
+    static debounce(func: Function, timeout = 300) {
         let timer: number;
         return (...args: any[]) => {
             clearTimeout(timer);
-            timer = setTimeout(() => { func.apply(this, args); }, timeout);
+            timer = setTimeout(() => {
+                func.apply(this, args);
+            }, timeout);
         };
     }
 
@@ -69,8 +85,8 @@ export class wuGeneral {
      * @param obj
      * @param strategy whether to use json stringify and parse or the structured clone method
      */
-    static deepCopy<T = any>(obj: T, strategy: 'json' | 'structured' = 'structured'): T{
-        if(strategy == "json")
+    static deepCopy<T = any>(obj: T, strategy: 'json' | 'structured' = 'structured'): T {
+        if (strategy == "json")
             return JSON.parse(JSON.stringify(obj)) as T
         else return structuredClone<T>(obj)
     }
@@ -81,11 +97,22 @@ export class wuGeneral {
      * @param event the click event
      * @param n number of clicks required for the callback
      */
-    static onNthClick(callBack: Function, event: MouseEvent, n: number = 2){
-        if(event.detail == n){
+    static onNthClick(callBack: Function, event: MouseEvent, n: number = 2) {
+        if (event.detail == n) {
             callBack()
         }
     }
 
-    //TODO add array item mover
+    /**
+     * moves an item in an array from one index to another
+     * @param array
+     * @param from
+     * @param to
+     */
+    static arrayMove<T = any>(array: T[], from: number, to: number): T[] {
+        const result = Array.from(array)
+        const [moved] = result.splice(from, 1)
+        result.splice(to, 0, moved)
+        return result
+    }
 }

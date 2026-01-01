@@ -17,6 +17,8 @@ export interface hslColor {
 
 //TODO blend modes
 
+//TODO add validity check handling
+
 /**
  * Functions for converting, manipulating and generating colors
  *
