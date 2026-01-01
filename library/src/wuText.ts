@@ -46,6 +46,7 @@ export class wuText{
      *               - default: 2
      */
     static truncate(text: string, maxLength: number = 15, suffix: string = '...', trim: boolean = true, buffer: number = 2): string {
+        if(!text) return ""
         if(text.length <= maxLength + buffer) return text
         else if(trim) return text.substring(0, maxLength).trim() + suffix
         else return text.substring(0, maxLength) + suffix
@@ -60,8 +61,11 @@ export class wuText{
      * @param buffer number of extra characters allowed before truncating that are not added to the maxLength when truncating
      *               (gets rid of truncating a single character that actually results in the longer string due to the suffix being added)
      *               - default: 2
+     * @return truncated string or null if the input text was null or empty
      */
-    static truncateCenter(text: string, startLength: number = 8, endLength: number = 8, separator: string = '...', buffer: number = 2): string {
+    static truncateCenter(text: string, startLength: number = 8, endLength: number = 8, separator: string = '...', buffer: number = 2): string | null {
+        if(!text) return null
+
         if(text.length <= startLength + endLength + buffer) return text
         return text.substring(0, startLength) + separator + text.substring(text.length - endLength, text.length)
     }
@@ -72,8 +76,11 @@ export class wuText{
      * @example numberToLetter(0) returns 'A' and numberToLetter(25) returns 'Z'
      * @param number
      * @param fontCase
+     * @return letter or null if the input number was undefined
      */
-    static numberToLetter(number: number, fontCase: "upper" |"lower" = "upper"): string {
+    static numberToLetter(number: number, fontCase: "upper" |"lower" = "upper"): string | null {
+        if(number == undefined) return null
+
         number = this.wrapNumber(number, 0, 25)
         return fontCase == "lower" ? wuConstants.Alphabet.lower[number] : wuConstants.Alphabet.upper[number]
     }
@@ -86,8 +93,11 @@ export class wuText{
      * @param number
      * @param min
      * @param max
+     * @return wrapped number or null if the input number was undefined
      */
-    static wrapNumber(number: number, min: number, max: number): number {
+    static wrapNumber(number: number, min: number, max: number): number | null {
+        if(number == undefined) return null
+
         let optionCount = max - min + 1
 
         if(number < min) {
@@ -104,8 +114,11 @@ export class wuText{
      * @param from position
      * @param to position
      * @param fontCase "upper" or "lower"
+     * @return modified string or null if the input text was null or empty
      */
-    static upperOrLowerRange(text: string, from: number, to: number, fontCase: "upper" | "lower" = "upper"): string {
+    static upperOrLowerRange(text: string, from: number, to: number, fontCase: "upper" | "lower" = "upper"): string | null {
+        if(!text) return null
+
         let start = text.substring(0, from)
         let middle = text.substring(from, to+1)
         let end = text.substring(to+1)
@@ -121,8 +134,10 @@ export class wuText{
     /**
      * Converts a boolean value to "Yes" or "No"
      * @param value
+     * @return "Yes" if true, "No" if false, null if undefined
      */
-    static booleanToYesNo(value: boolean): string {
+    static booleanToYesNo(value: boolean): string | null {
+        if(!value) return null
         return value ? "Yes" : "No"
     }
 
