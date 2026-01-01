@@ -1,6 +1,18 @@
-import {CouldBeDate, TimePieces} from "./wuTime"
+import {
+    CouldBeDate,
+    DateStringOptions,
+    DateTimeStringOptions,
+    RelativeStringOptions,
+    TimePieces,
+    TimeStringOptions
+} from "./wuTime"
 import {wuConstants} from "./wuConstants"
 import {wuText} from "./wuText"
+
+export interface DurationStringOptions {
+    precision: 1 | 2 | 3,
+    separator: string
+}
 
 export class wuDuration {
     /**
@@ -51,10 +63,14 @@ export class wuDuration {
      * Converts a duration to a time duration string.
      * i.e. "5 minutes", "2 hours", "1 day", etc.
      * @param duration Date object, time string or duration in milliseconds
-     * @param precision how many different units to show 3 would be "5 minutes, 2 seconds, 1 millisecond" 1 would be "5 minutes"
-     * @param separator character that is inserted between the different units
+     * @param options precision and separator
      */
-    static toDurationString(duration: number, precision: 1 | 2 | 3 = 2, separator: string = ", "): string {
+    static toDurationString(duration: number, options: DurationStringOptions): string {
+        const {
+            precision = 2,
+            separator = ", "
+        } = options;
+
         const pieces = this.toSplitPieces(duration)
 
         let result: string[]
@@ -89,21 +105,15 @@ export class wuDuration {
      * @param duration Date object, time string or duration in milliseconds
      * @param options dateSeparator and timeSeparator
      */
-    static toFullDateTimeString(
+    static toDateTimeString(
         duration: number,
-        options: {
-            dateSeparator?: string,
-            timeSeparator?: string,
-            dateTimeSeparator?: string,
-            showMilliseconds?: boolean,
-            yearDigits?: 2 | 4
-        } = {}
+        options: DateTimeStringOptions = {}
     ){
         const {dateTimeSeparator = " "} = options
 
-        return this.toFullDateString(duration, {dateSeparator: options.dateSeparator, yearDigits: options.yearDigits})
+        return this.toDateString(duration, {dateSeparator: options.dateSeparator, yearDigits: options.yearDigits})
             + dateTimeSeparator +
-            this.toFullTimeString(duration, {timeSeparator: options.timeSeparator, showMilliseconds: options.showMilliseconds})
+            this.toTimeString(duration, {timeSeparator: options.timeSeparator, showMilliseconds: options.showMilliseconds})
     }
 
     /**
@@ -111,9 +121,9 @@ export class wuDuration {
      * @param duration Date object, time string or duration in milliseconds
      * @param options dateSeparator
      */
-    static toFullDateString(
+    static toDateString(
         duration: number,
-        options: {dateSeparator?: string, yearDigits?: 2 | 4} = {}
+        options: DateStringOptions = {}
     ) {
         const {
             dateSeparator = '.',
@@ -138,9 +148,9 @@ export class wuDuration {
      * @param duration
      * @param options
      */
-    static toFullTimeString(
+    static toTimeString(
         duration: number,
-        options: {timeSeparator?: string, showMilliseconds?: boolean} = {}
+        options: TimeStringOptions = {}
     ) {
         const {
             timeSeparator = ":",

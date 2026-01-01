@@ -6,6 +6,7 @@ import {wuDuration} from "./wuDuration"
  * Could be a Date object, a date string or a timestamp in milliseconds
  */
 export type CouldBeDate = Date | string | number
+export type CouldBeDateOrNull = Date | string | number | null | undefined
 
 export type DateOrDuration = "Date" | "Duration"
 
@@ -19,6 +20,25 @@ export interface TimePieces {
     milliseconds: number
 }
 
+export interface RelativeStringOptions {
+    precision: 1 | 2 | 3,
+    separator: string
+}
+
+export interface DateStringOptions {
+    dateSeparator?: string,
+    yearDigits?: 2 | 4
+}
+
+export interface TimeStringOptions {
+    timeSeparator?: string,
+    showMilliseconds?: boolean
+}
+
+export interface DateTimeStringOptions extends DateStringOptions, TimeStringOptions{
+    dateTimeSeparator?: string
+}
+
 /**
  * Functions for working with dates and times
  */
@@ -27,7 +47,7 @@ export class wuTime{
      * validates a timestamp and returns a boolean indicating validity
      * @param timestamp date object, time string or timestamp in milliseconds
      */
-    static validate(timestamp: CouldBeDate){
+    static isValid(timestamp: CouldBeDateOrNull){
         try{
             if(this.anyToDate(timestamp) as unknown as string == "Invalid Date")
                 return false
@@ -44,9 +64,10 @@ export class wuTime{
      * @param timestamp date object, time string or timestamp in milliseconds
      * @param worker function to run if the timestamp is valid
      * @param alternative string to return if the timestamp is invalid
+     * @returns either the alternative or the result of the worker function
      */
-    static handleInvalid(timestamp: CouldBeDate, worker: (timestamp: Date) => string, alternative: string): string{
-        if(!this.validate(timestamp))
+    static handleInvalid(timestamp: CouldBeDateOrNull, worker: (timestamp: Date) => string, alternative: string): string{
+        if(!this.isValid(timestamp))
             return alternative
         else{
             const dateObj = this.anyToDate(timestamp)
@@ -58,14 +79,17 @@ export class wuTime{
      * Converts a timestamp to a Date object.
      * assumes either a valid timestamp as a string or as the number of milliseconds since the epoch
      * @param timestamp date object, time string or timestamp in milliseconds
-     * @param nullHandling whether to throw an error or set to current time if null is passed in
+     * @param ifInvalid whether to throw an error or set to current time if null is passed in
+     * @returns Date object or null if the timestamp is invalid and ifInvalid is set to "null"
      */
-    static anyToDate(timestamp: CouldBeDate, nullHandling: "error" | "setToNow" = "error"): Date | null {
-        if (timestamp == null) {
-            if (nullHandling == "setToNow")
+    static anyToDate(timestamp: CouldBeDateOrNull, ifInvalid: "error" | "setToNow" | "null" = "error"): Date | null {
+        if (!this.isValid(timestamp)) {
+            if (ifInvalid == "setToNow")
                 return new Date();
+            if(ifInvalid == "null")
+                return null
             else
-                throw new Error("timestamp is null")
+                throw new Error("Timestamp is null")
         }
 
         if (typeof timestamp == "string") {
@@ -81,8 +105,12 @@ export class wuTime{
      * If you were to add all the pieces together you would get the original timestamp
      * To get the same date expressed in different length units use toAbsoluteTimePieces
      * @param timestamp Date object, time string or timestamp in milliseconds
+     * @returns TimePieces object or null if the timestamp is invalid
      */
-    static toSplitPieces(timestamp: CouldBeDate): TimePieces {
+    static toSplitPieces(timestamp: CouldBeDateOrNull): TimePieces | null {
+        if(!this.isValid(timestamp))
+            return null
+
         let timeDate = this.anyToDate(timestamp)
 
         return {
@@ -101,17 +129,25 @@ export class wuTime{
      * a timestamp 5 hours into the future would return "5 hours, 23 minutes from now"
      * a timestamp 5 hours in the past would return "5 hours, 23 minutes ago"
      * @param timestamp Date object, time string or timestamp in milliseconds
-     * @param precision how many different units to show 3 would be "5 minutes, 2 seconds, 1 millisecond" 1 would be "5 minutes"
-     * @param separator character that is inserted between the different units
+     * @param options precision and separator
+     * @returns result string or null if the timestamp is invalid
      */
-    static toRelativeString(timestamp: CouldBeDate, precision: 1 | 2 | 3 = 2, separator: string = ", "){
+    static toRelativeString(timestamp: CouldBeDateOrNull, options: RelativeStringOptions): string | null {
+        if(!this.isValid(timestamp))
+            return null
+
+        const {
+            precision = 2,
+            separator = ", "
+        } = options;
+
         const date = this.anyToDate(timestamp)
 
         if(Date.now() > date.valueOf()){ //in the past
-            return wuDuration.toDurationString(this.difference(timestamp, new Date()), precision, separator) + " ago"
+            return wuDuration.toDurationString(this.difference(timestamp, new Date()), {precision, separator}) + " ago"
         }
         else{// in the future
-            return wuDuration.toDurationString(this.difference(new Date(), timestamp), precision, separator) + " from now"
+            return wuDuration.toDurationString(this.difference(new Date(), timestamp), {precision, separator}) + " from now"
         }
     }
 
@@ -119,33 +155,35 @@ export class wuTime{
      * Converts a timestamp to a string with date and time as numbers and a chosen separator.
      * @param timestamp Date object, time string or timestamp in milliseconds
      * @param options dateSeparator and timeSeparator
+     * @return result string or null if the timestamp is invalid
      */
-    static toFullDateTimeString(
-        timestamp: CouldBeDate,
-        options: {
-            dateSeparator?: string,
-            timeSeparator?: string,
-            dateTimeSeparator?: string,
-            showMilliseconds?: boolean,
-            yearDigits?: 2 | 4
-        } = {}
-    ){
+    static toDateTimeString(
+        timestamp: CouldBeDateOrNull,
+        options: DateTimeStringOptions = {}
+    ): string | null{
+        if(!this.isValid(timestamp))
+            return null
+
         const {dateTimeSeparator = " "} = options
 
-        return this.toFullDateString(timestamp, {dateSeparator: options.dateSeparator, yearDigits: options.yearDigits})
+        return this.toDateString(timestamp, {dateSeparator: options.dateSeparator, yearDigits: options.yearDigits})
             + dateTimeSeparator +
-            this.toFullTimeString(timestamp, {timeSeparator: options.timeSeparator, showMilliseconds: options.showMilliseconds})
+            this.toTimeString(timestamp, {timeSeparator: options.timeSeparator, showMilliseconds: options.showMilliseconds})
     }
 
     /**
      * Converts a timestamp to a string with date as numbers and a chosen separator.
      * @param timestamp Date object, time string or timestamp in milliseconds
      * @param options dateSeparator
+     * @return result string or null if the timestamp is invalid
      */
-    static toFullDateString(
-        timestamp: CouldBeDate,
-        options: {dateSeparator?: string, yearDigits?: 2 | 4} = {dateSeparator: '.', yearDigits: 2}
-    ) {
+    static toDateString(
+        timestamp: CouldBeDateOrNull,
+        options:  DateStringOptions = {}
+    ): string | null {
+        if(!this.isValid(timestamp))
+            return null
+
         const {
             dateSeparator = '.',
             yearDigits = 2
@@ -167,11 +205,15 @@ export class wuTime{
      * Converts a timestamp to a string representing the time as human-readable numbers like 08:12:34
      * @param timestamp
      * @param options
+     * @return result string or null if the timestamp is invalid
      */
-    static toFullTimeString(
-        timestamp: CouldBeDate,
-        options: {timeSeparator?: string, showMilliseconds?: boolean} = {}
-    ) {
+    static toTimeString(
+        timestamp: CouldBeDateOrNull,
+        options: TimeStringOptions = {}
+    ): string | null {
+        if(!this.isValid(timestamp))
+            return null
+
         const {
             timeSeparator = ":",
             showMilliseconds = false
@@ -192,8 +234,12 @@ export class wuTime{
      * Calculates the difference between two timestamps in milliseconds
      * @param timestamp1 the earlier timestamp
      * @param timestamp2 the later timestamp
+     * @return difference in milliseconds or null if either timestamp is invalid
      */
-    static difference(timestamp1: CouldBeDate, timestamp2: CouldBeDate): number {
+    static difference(timestamp1: CouldBeDateOrNull, timestamp2: CouldBeDateOrNull): number | null{
+        if(!this.isValid(timestamp1) || !this.isValid(timestamp2))
+            return null
+
         const date1 = this.anyToDate(timestamp1)
         const date2 = this.anyToDate(timestamp2)
 
