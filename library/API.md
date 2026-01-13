@@ -270,10 +270,12 @@ General Utility functions for various tasks
 * [wuGeneral](#wuGeneral)
     * [.selectText(element)](#wuGeneral.selectText)
     * [.moveCursorToEnd(element)](#wuGeneral.moveCursorToEnd)
+    * [.moveCursorToStart(element)](#wuGeneral.moveCursorToStart)
     * [.smartHeight(elem)](#wuGeneral.smartHeight)
     * [.debounce(func, timeout)](#wuGeneral.debounce) ⇒
     * [.deepCopy(obj, strategy)](#wuGeneral.deepCopy)
     * [.onNthClick(callBack, event, n)](#wuGeneral.onNthClick)
+    * [.arrayMove(array, from, to)](#wuGeneral.arrayMove)
 
 <a name="wuGeneral.selectText"></a>
 
@@ -290,6 +292,17 @@ selects all the text in a given element
 
 ### wuGeneral.moveCursorToEnd(element)
 moves the cursor to the end of a given elements text content
+
+**Kind**: static method of [<code>wuGeneral</code>](#wuGeneral)  
+
+| Param |
+| --- |
+| element | 
+
+<a name="wuGeneral.moveCursorToStart"></a>
+
+### wuGeneral.moveCursorToStart(element)
+moves the cursor to the start of a given elements text content
 
 **Kind**: static method of [<code>wuGeneral</code>](#wuGeneral)  
 
@@ -349,6 +362,19 @@ Calls the callBack function after a set amount of clicks
 | event |  | the click event |
 | n | <code>2</code> | number of clicks required for the callback |
 
+<a name="wuGeneral.arrayMove"></a>
+
+### wuGeneral.arrayMove(array, from, to)
+moves an item in an array from one index to another
+
+**Kind**: static method of [<code>wuGeneral</code>](#wuGeneral)  
+
+| Param |
+| --- |
+| array | 
+| from | 
+| to | 
+
 <a name="wuText"></a>
 
 ## wuText
@@ -361,11 +387,11 @@ Functions for working with strings in various ways
     * [.roundNumber(num, digits)](#wuText.roundNumber)
     * [.clamp(min, number, max)](#wuText.clamp)
     * [.truncate(text, maxLength, suffix, trim, buffer)](#wuText.truncate)
-    * [.truncateCenter(text, startLength, endLength, separator, buffer)](#wuText.truncateCenter)
-    * [.numberToLetter(number, fontCase)](#wuText.numberToLetter)
-    * [.wrapNumber(number, min, max)](#wuText.wrapNumber)
-    * [.upperOrLowerRange(text, from, to, fontCase)](#wuText.upperOrLowerRange)
-    * [.booleanToYesNo(value)](#wuText.booleanToYesNo)
+    * [.truncateCenter(text, startLength, endLength, separator, buffer)](#wuText.truncateCenter) ⇒
+    * [.numberToLetter(number, fontCase)](#wuText.numberToLetter) ⇒
+    * [.wrapNumber(number, min, max)](#wuText.wrapNumber) ⇒
+    * [.upperOrLowerRange(text, from, to, fontCase)](#wuText.upperOrLowerRange) ⇒
+    * [.booleanToYesNo(value)](#wuText.booleanToYesNo) ⇒
 
 <a name="wuText.pad"></a>
 
@@ -423,10 +449,11 @@ Truncates a string to a specified length and adds a suffix if the string is long
 
 <a name="wuText.truncateCenter"></a>
 
-### wuText.truncateCenter(text, startLength, endLength, separator, buffer)
+### wuText.truncateCenter(text, startLength, endLength, separator, buffer) ⇒
 Truncates the center of a string and adds a separator in between the pieces
 
 **Kind**: static method of [<code>wuText</code>](#wuText)  
+**Returns**: truncated string or null if the input text was null or empty  
 
 | Param | Default | Description |
 | --- | --- | --- |
@@ -438,11 +465,12 @@ Truncates the center of a string and adds a separator in between the pieces
 
 <a name="wuText.numberToLetter"></a>
 
-### wuText.numberToLetter(number, fontCase)
+### wuText.numberToLetter(number, fontCase) ⇒
 converts a number to a letter (A-Z) based on the number provided
 numbers higher than 25 or lower than 0 will wrap around using wuText.wrapNumber
 
 **Kind**: static method of [<code>wuText</code>](#wuText)  
+**Returns**: letter or null if the input number was undefined  
 
 | Param | Default |
 | --- | --- |
@@ -455,12 +483,13 @@ numberToLetter(0) returns 'A' and numberToLetter(25) returns 'Z'
 ```
 <a name="wuText.wrapNumber"></a>
 
-### wuText.wrapNumber(number, min, max)
+### wuText.wrapNumber(number, min, max) ⇒
 Wraps a number between a min and max value
 any number lower than minimum will start at the maximum value going backwards
 any number higher than maximum will start at the minimum value going forwards
 
 **Kind**: static method of [<code>wuText</code>](#wuText)  
+**Returns**: wrapped number or null if the input number was undefined  
 
 | Param |
 | --- |
@@ -474,10 +503,11 @@ wrapNumber(3, 0, 2) returns 0 and wrapNumber(-1, 0, 2) returns 2
 ```
 <a name="wuText.upperOrLowerRange"></a>
 
-### wuText.upperOrLowerRange(text, from, to, fontCase)
+### wuText.upperOrLowerRange(text, from, to, fontCase) ⇒
 Uppercases or Lowercases a given range of letters in a text
 
 **Kind**: static method of [<code>wuText</code>](#wuText)  
+**Returns**: modified string or null if the input text was null or empty  
 
 | Param | Default | Description |
 | --- | --- | --- |
@@ -488,10 +518,11 @@ Uppercases or Lowercases a given range of letters in a text
 
 <a name="wuText.booleanToYesNo"></a>
 
-### wuText.booleanToYesNo(value)
+### wuText.booleanToYesNo(value) ⇒
 Converts a boolean value to "Yes" or "No"
 
 **Kind**: static method of [<code>wuText</code>](#wuText)  
+**Returns**: "Yes" if true, "No" if false, null if undefined  
 
 | Param |
 | --- |
@@ -505,34 +536,23 @@ Functions for working with dates and times
 **Kind**: global class  
 
 * [wuTime](#wuTime)
-    * [.validate(timestamp)](#wuTime.validate)
-    * [.handleInvalid(timestamp, worker, alternative)](#wuTime.handleInvalid)
-    * [.anyToDate(timestamp, nullHandling)](#wuTime.anyToDate)
-    * [.toSplitPieces(timestamp)](#wuTime.toSplitPieces)
-    * [.toRelativeString(timestamp, precision, separator)](#wuTime.toRelativeString)
-    * [.toFullDateTimeString(timestamp, options)](#wuTime.toFullDateTimeString)
-    * [.toFullDateString(timestamp, options)](#wuTime.toFullDateString)
-    * [.toFullTimeString(timestamp, options)](#wuTime.toFullTimeString)
-    * [.difference(timestamp1, timestamp2)](#wuTime.difference)
-
-<a name="wuTime.validate"></a>
-
-### wuTime.validate(timestamp)
-validates a timestamp and returns a boolean indicating validity
-
-**Kind**: static method of [<code>wuTime</code>](#wuTime)  
-
-| Param | Description |
-| --- | --- |
-| timestamp | date object, time string or timestamp in milliseconds |
+    * [.handleInvalid(timestamp, worker, alternative)](#wuTime.handleInvalid) ⇒
+    * [.anyToDate(timestamp)](#wuTime.anyToDate) ⇒
+    * [.toSplitPieces(timestamp)](#wuTime.toSplitPieces) ⇒
+    * [.toRelativeString(timestamp, options)](#wuTime.toRelativeString) ⇒
+    * [.toDateTimeString(timestamp, options)](#wuTime.toDateTimeString) ⇒
+    * [.toDateString(timestamp, options)](#wuTime.toDateString) ⇒
+    * [.toTimeString(timestamp, options)](#wuTime.toTimeString) ⇒
+    * [.difference(timestamp1, timestamp2)](#wuTime.difference) ⇒
 
 <a name="wuTime.handleInvalid"></a>
 
-### wuTime.handleInvalid(timestamp, worker, alternative)
+### wuTime.handleInvalid(timestamp, worker, alternative) ⇒
 Validates a timestamp and returns an alternative string value if invalid
 otherwise runs a worker function with the valid Date object
 
 **Kind**: static method of [<code>wuTime</code>](#wuTime)  
+**Returns**: either the alternative or the result of the worker function  
 
 | Param | Description |
 | --- | --- |
@@ -542,25 +562,26 @@ otherwise runs a worker function with the valid Date object
 
 <a name="wuTime.anyToDate"></a>
 
-### wuTime.anyToDate(timestamp, nullHandling)
+### wuTime.anyToDate(timestamp) ⇒
 Converts a timestamp to a Date object.
 assumes either a valid timestamp as a string or as the number of milliseconds since the epoch
 
 **Kind**: static method of [<code>wuTime</code>](#wuTime)  
+**Returns**: Date object or null if the timestamp is invalid  
 
-| Param | Default | Description |
-| --- | --- | --- |
-| timestamp |  | date object, time string or timestamp in milliseconds |
-| nullHandling | <code>error</code> | whether to throw an error or set to current time if null is passed in |
+| Param | Description |
+| --- | --- |
+| timestamp | date object, time string or timestamp in milliseconds |
 
 <a name="wuTime.toSplitPieces"></a>
 
-### wuTime.toSplitPieces(timestamp)
+### wuTime.toSplitPieces(timestamp) ⇒
 Converts a timestamp to an object with the time split into its pieces
 If you were to add all the pieces together you would get the original timestamp
 To get the same date expressed in different length units use toAbsoluteTimePieces
 
 **Kind**: static method of [<code>wuTime</code>](#wuTime)  
+**Returns**: TimePieces object or null if the timestamp is invalid  
 
 | Param | Description |
 | --- | --- |
@@ -568,49 +589,52 @@ To get the same date expressed in different length units use toAbsoluteTimePiece
 
 <a name="wuTime.toRelativeString"></a>
 
-### wuTime.toRelativeString(timestamp, precision, separator)
+### wuTime.toRelativeString(timestamp, options) ⇒
 converts a time stamp into a human-readable relative time compared to now
 a timestamp 5 hours into the future would return "5 hours, 23 minutes from now"
 a timestamp 5 hours in the past would return "5 hours, 23 minutes ago"
 
 **Kind**: static method of [<code>wuTime</code>](#wuTime)  
+**Returns**: result string or null if the timestamp is invalid  
 
-| Param | Default | Description |
-| --- | --- | --- |
-| timestamp |  | Date object, time string or timestamp in milliseconds |
-| precision | <code>2</code> | how many different units to show 3 would be "5 minutes, 2 seconds, 1 millisecond" 1 would be "5 minutes" |
-| separator | <code>, </code> | character that is inserted between the different units |
+| Param | Description |
+| --- | --- |
+| timestamp | Date object, time string or timestamp in milliseconds |
+| options | precision and separator |
 
-<a name="wuTime.toFullDateTimeString"></a>
+<a name="wuTime.toDateTimeString"></a>
 
-### wuTime.toFullDateTimeString(timestamp, options)
+### wuTime.toDateTimeString(timestamp, options) ⇒
 Converts a timestamp to a string with date and time as numbers and a chosen separator.
 
 **Kind**: static method of [<code>wuTime</code>](#wuTime)  
+**Returns**: result string or null if the timestamp is invalid  
 
 | Param | Description |
 | --- | --- |
 | timestamp | Date object, time string or timestamp in milliseconds |
 | options | dateSeparator and timeSeparator |
 
-<a name="wuTime.toFullDateString"></a>
+<a name="wuTime.toDateString"></a>
 
-### wuTime.toFullDateString(timestamp, options)
+### wuTime.toDateString(timestamp, options) ⇒
 Converts a timestamp to a string with date as numbers and a chosen separator.
 
 **Kind**: static method of [<code>wuTime</code>](#wuTime)  
+**Returns**: result string or null if the timestamp is invalid  
 
 | Param | Description |
 | --- | --- |
 | timestamp | Date object, time string or timestamp in milliseconds |
 | options | dateSeparator |
 
-<a name="wuTime.toFullTimeString"></a>
+<a name="wuTime.toTimeString"></a>
 
-### wuTime.toFullTimeString(timestamp, options)
+### wuTime.toTimeString(timestamp, options) ⇒
 Converts a timestamp to a string representing the time as human-readable numbers like 08:12:34
 
 **Kind**: static method of [<code>wuTime</code>](#wuTime)  
+**Returns**: result string or null if the timestamp is invalid  
 
 | Param |
 | --- |
@@ -619,10 +643,11 @@ Converts a timestamp to a string representing the time as human-readable numbers
 
 <a name="wuTime.difference"></a>
 
-### wuTime.difference(timestamp1, timestamp2)
+### wuTime.difference(timestamp1, timestamp2) ⇒
 Calculates the difference between two timestamps in milliseconds
 
 **Kind**: static method of [<code>wuTime</code>](#wuTime)  
+**Returns**: difference in milliseconds or null if either timestamp is invalid  
 
 | Param | Description |
 | --- | --- |

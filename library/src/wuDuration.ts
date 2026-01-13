@@ -10,8 +10,8 @@ import {wuConstants} from "./wuConstants"
 import {wuText} from "./wuText"
 
 export interface DurationStringOptions {
-    precision: 1 | 2 | 3,
-    separator: string
+    precision?: 1 | 2 | 3,
+    separator?: string
 }
 
 export class wuDuration {
@@ -65,7 +65,10 @@ export class wuDuration {
      * @param duration Date object, time string or duration in milliseconds
      * @param options precision and separator
      */
-    static toDurationString(duration: number, options: DurationStringOptions): string {
+    static toDurationString(
+        duration: number,
+        options: DurationStringOptions = {}
+    ): string {
         const {
             precision = 2,
             separator = ", "

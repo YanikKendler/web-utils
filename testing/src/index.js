@@ -9,7 +9,9 @@ import {wuConstants, wuDuration} from "@yanikkendler/web-utils/dist"
 console.log("WU TIME")
 
 console.log(wuTime.toSplitPieces(Date.now()))
-console.log(wuTime.toFullDateTimeString(Date.now(), {yearDigits: 4, timeSeparator: "-"}))
+console.log(wuTime.toDateTimeString(Date.now(), {yearDigits: 4, timeSeparator: "-"}))
+console.log(wuTime.toDateTimeString("2024-06-15"))
+console.log(wuTime.toDateString("2024-06-15"))
 console.log(wuTime.toRelativeString(new Date(Date.now() + wuConstants.Time.msPerDay)))
 
 console.log("WU DURATION")

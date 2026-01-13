@@ -42,6 +42,19 @@ Available utility classes:
 Documentation of all available functions - auto generated from JSDOC comments
 [./API.md](https://github.com/YanikKendler/web-utils/blob/main/library/API.md)
 
+## Breaking in v1.4.2 / v1.4.3
+Error handling was standardized across the library. All methods that previously threw errors now return null instead.
+
+Options were standardized to always be passed as an object instead of function params.
+
+Other breaking changes:
+- wuTime.validate() was removed
+- wuTime.anyToDate was changed to always return null on invalid input and no longer accepts a second param
+- wuTime.toFullDateString was renamed to wuTime.toDateString
+- wuTime.toFullDateTimeString was renamed to wuTime.toDateTimeString
+- wuDuration.toFullDateString was renamed to wuDuration.toDateString
+- wuDuration.toFullDateTimeString was renamed to wuDuration.toDateTimeString
+
 ## Breaking in v1.4.0
 WuTime was heavily reworked and split into wuTime and wuDuration to separate concerns.
 
