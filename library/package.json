@@ -1,11 +1,14 @@
 {
   "name": "@yanikkendler/web-utils",
-  "version": "1.4.4",
+  "version": "1.4.6",
   "description": "a collection of utility functions for web development in js/ts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "commonjs",
   "scripts": {
-    "build": "tsc -p tsconfig.json & npm run docs",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json && node ./scripts/renameMjs.js",
+    "build": "npm run build:cjs && npm run build:esm && npm run docs",
     "docs": "(echo # API & echo. & echo ^<a name=\"root\"^>^</a^> & echo. & npx jsdoc2md \"dist/**/*.js\") > API.md"
   },
   "files": [
@@ -16,7 +19,7 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/esm/index.mjs",
       "require": "./dist/index.js"
     },
     "./dist": "./dist/index.js"

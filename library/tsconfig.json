@@ -1,26 +1,3 @@
-/*
-{
-  "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "target": "es2017",
-    "lib": [
-      "es2017",
-      "dom",
-      "scripthost"
-    ],
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-  },
-  "include": [
-    "*.ts"
-  ]
-}*/
-
 {
   "compilerOptions": {
     "module": "commonjs",
