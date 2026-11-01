@@ -1,6 +1,6 @@
 {
   "name": "@yanikkendler/web-utils",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "description": "a collection of utility functions for web development in js/ts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,8 +20,14 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/esm/index.d.mts",
+        "default": "./dist/esm/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
     "./dist": "./dist/index.js"
   },
