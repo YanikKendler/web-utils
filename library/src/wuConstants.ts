@@ -77,4 +77,9 @@ export class wuConstants{
         octopusHeartCount: 3, // :D
         octopusBloodColor: "blue", // :DD
     }
+
+    static readonly Value = {
+        trueString: "true",
+        falseString: "false",
+    }
 }
